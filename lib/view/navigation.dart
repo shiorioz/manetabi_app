@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manetabi_app/view/component/appbar_component.dart';
 import 'package:manetabi_app/view/page/add_plan_page.dart';
 import 'package:manetabi_app/view/page/bookmark_page.dart';
 import 'package:manetabi_app/view/page/home_page.dart';
@@ -24,6 +25,7 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const AppbarComp(),
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
