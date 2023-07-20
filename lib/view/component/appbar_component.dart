@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constant/strings.dart';
+import '../../constant/string_const.dart';
 
 class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
   const AppbarComp({Key? key}) : super(key: key);
@@ -9,7 +9,7 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
-        Strings.appName.toUpperCase(),
+        StringConst.appName.toUpperCase(),
         style: const TextStyle(color: Colors.black),
       ),
       backgroundColor: Colors.white,
