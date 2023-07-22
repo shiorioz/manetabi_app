@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class AddPlanPage extends StatefulWidget {
-  const AddPlanPage({super.key});
+class PlanAddPage extends StatefulWidget {
+  const PlanAddPage({super.key});
 
   @override
-  State<AddPlanPage> createState() => _AddPlanPageState();
+  State<PlanAddPage> createState() => _PlanAddPageState();
 }
 
-class _AddPlanPageState extends State<AddPlanPage> {
+class _PlanAddPageState extends State<PlanAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
