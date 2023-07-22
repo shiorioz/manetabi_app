@@ -20,3 +20,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # テスト用画像フォルダ
+  assets:
+    - assets/images/

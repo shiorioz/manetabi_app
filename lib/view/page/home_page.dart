@@ -81,11 +81,16 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      color: Colors.yellow[200],
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: Image.asset(
+                        post.thumbnail_path ?? Strings.noImage,
+                        height: 80,
+                        width: 80,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                     const SizedBox(width: 30),
                     Expanded(
@@ -103,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                           const Divider(
                               thickness: 3,
                               color: ColorConst.dark_grey,
-                              height: 14,
+                              height: 6,
                               endIndent: 48),
                           // タグ
                           _tagsWidget(post, post.tags != null),
@@ -157,8 +162,9 @@ class _HomePageState extends State<HomePage> {
                       padding: const EdgeInsets.all(2.0),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8.0, vertical: 2.0),
-                        child: Text(post.tags![tagIndex]),
+                            horizontal: 6.0, vertical: 1.0),
+                        child: Text(post.tags![tagIndex],
+                            style: const TextStyle(fontSize: 12)),
                       ),
                     ),
                   ),
