@@ -44,7 +44,8 @@ class _HomePageState extends State<HomePage> {
       children: [
         const Padding(
           padding: EdgeInsets.all(8.0),
-          child: Text(Strings.recommend_month, style: TextStyle(fontSize: 20)),
+          child:
+              Text(StringConst.recommendMonth, style: TextStyle(fontSize: 20)),
         ),
         SizedBox(
           height: 1000,
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
-                        post.thumbnail_path ?? Strings.noImage,
+                        post.thumbnail_path ?? StringConst.noImagePath,
                         height: 80,
                         width: 80,
                         fit: BoxFit.cover,

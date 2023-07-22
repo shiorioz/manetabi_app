@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../constant/string_const.dart';
+import '../../constant/strings.dart';
 
 class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
   const AppbarComp({Key? key}) : super(key: key);
