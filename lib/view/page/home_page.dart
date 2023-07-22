@@ -63,14 +63,12 @@ class _HomePageState extends State<HomePage> {
   // カード（1枚）ウィジェット
   Widget _oneCard(PostModel post) {
     DateFormat dateFormat = DateFormat('yyyy/MM/dd');
-    print(post.start_date.toString() + post.end_date.toString());
 
     return Container(
       height: 130,
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
       child: InkWell(
         onTap: () {
-          print('plan_id:' + post.plan_id.toString() + ' がタップされました');
           // detailページに遷移
           Navigator.push(
               context,
