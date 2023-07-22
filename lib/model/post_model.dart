@@ -9,6 +9,7 @@ class PostModel {
   final DateTime? start_date;
   final DateTime? end_date;
   final bool is_public;
+  final List<String>? tags;
   final DateTime created_at;
   final DateTime updated_at;
 
@@ -23,6 +24,7 @@ class PostModel {
     this.start_date,
     this.end_date,
     required this.is_public,
+    this.tags,
     required this.created_at,
     required this.updated_at,
   });

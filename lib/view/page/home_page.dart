@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/constant/strings.dart';
+import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,35 +13,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<PostModel> _post = [
-    PostModel(
-      plan_id: 1,
-      user_id: 1,
-      title: '東京旅行',
-      is_public: false,
-      created_at: DateTime.now(),
-      updated_at: DateTime.now(),
-      start_date: DateTime.now(),
-      end_date: DateTime.now(),
-    ),
-    PostModel(
-      plan_id: 2,
-      user_id: 2,
-      title: '北海道旅行',
-      is_public: false,
-      created_at: DateTime.now(),
-      updated_at: DateTime.now(),
-    ),
-    PostModel(
-      plan_id: 3,
-      user_id: 3,
-      title: '沖縄旅行',
-      is_public: false,
-      created_at: DateTime.now(),
-      updated_at: DateTime.now(),
-    ),
-  ];
-  final tags = ['2人旅', '1泊2日', '家族旅行'];
+  List<PostModel> _post = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _post = HomeController().post;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,6 +62,7 @@ class _HomePageState extends State<HomePage> {
   // カード（1枚）ウィジェット
   Widget _oneCard(PostModel post) {
     DateFormat dateFormat = DateFormat('yyyy/MM/dd');
+    print(post.start_date.toString() + post.end_date.toString());
 
     return Container(
       height: 130,
@@ -126,37 +106,7 @@ class _HomePageState extends State<HomePage> {
                               height: 14,
                               endIndent: 48),
                           // タグ
-                          SizedBox(
-                            height: 32,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: tags.length,
-                              itemBuilder: (context, index) {
-                                return Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 2.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: ColorConst.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2.0),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 8.0, vertical: 2.0),
-                                            child: Text(tags[index]),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
+                          _tagsWidget(post, post.tags != null),
                           // 日付
                           Row(
                             children: [
@@ -184,5 +134,42 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  // タグウィジェット
+  Widget _tagsWidget(PostModel post, bool isTagExist) {
+    if (isTagExist) {
+      return SizedBox(
+        height: 32,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: post.tags!.length,
+          itemBuilder: (context, tagIndex) {
+            return Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: ColorConst.grey,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(2.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8.0, vertical: 2.0),
+                        child: Text(post.tags![tagIndex]),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      );
+    } else {
+      return const SizedBox();
+    }
   }
 }
