@@ -4,8 +4,9 @@ class DetailController {
   final PostModel _post = PostModel(
     planId: 1,
     userId: 1,
-    title: '大阪旅行',
+    title: '関西一周の旅',
     isPublic: true,
+    location: ['大阪', '京都', '奈良'],
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   );

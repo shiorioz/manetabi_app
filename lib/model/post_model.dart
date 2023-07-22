@@ -5,7 +5,8 @@ class PostModel {
   final String? description;
   final String? thumbnailPath;
   final int? cost;
-  final int? locationId;
+  // final int? locationId;
+  final List<String>? location;
   final DateTime? startDate;
   final DateTime? endDate;
   final bool isPublic;
@@ -20,7 +21,7 @@ class PostModel {
     this.description,
     this.thumbnailPath,
     this.cost,
-    this.locationId,
+    this.location,
     this.startDate,
     this.endDate,
     required this.isPublic,

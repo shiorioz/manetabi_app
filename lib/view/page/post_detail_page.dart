@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
-import 'package:manetabi_app/view/component/bottom_two_btn_component.dart';
 
 import '../../constant/colors.dart';
 import '../../model/post_model.dart';
@@ -77,18 +76,56 @@ class _PostDetailPageState extends State<PostDetailPage> {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            Text(
-              post.title,
-              style: const TextStyle(fontSize: 20),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 40),
+              child: Text(
+                post.title,
+                style: const TextStyle(fontSize: 28),
+              ),
             ),
             const Divider(
               thickness: 3,
               color: ColorConst.dark_grey,
               height: 20,
             ),
+            SizedBox(
+              // width: 100
+              height: 30,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: post.location!.length,
+                itemBuilder: (context, index) {
+                  return _locationWidget(post.location![index]);
+                },
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _locationWidget(String location) {
+    return Row(
+      children: [
+        SizedBox(width: 10),
+        Container(
+          decoration: BoxDecoration(
+            color: ColorConst.grey,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          child: Row(
+            children: [
+              const Icon(Icons.location_on,
+                  size: 18, color: ColorConst.dark_grey),
+              const SizedBox(width: 4),
+              Text(location),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
