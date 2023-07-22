@@ -4,6 +4,7 @@ import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/constant/strings.dart';
 import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
+import 'package:manetabi_app/view/page/post_detail_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -70,6 +71,12 @@ class _HomePageState extends State<HomePage> {
       child: InkWell(
         onTap: () {
           print('plan_id:' + post.plan_id.toString() + ' がタップされました');
+          // detailページに遷移
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PostDetailPage(plan_id: post.plan_id),
+              ));
         },
         // エフェクトの削除
         splashFactory: NoSplash.splashFactory,
