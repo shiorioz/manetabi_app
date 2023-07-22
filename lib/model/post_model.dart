@@ -1,31 +1,31 @@
 class PostModel {
-  final int plan_id;
-  final int user_id;
+  final int planId;
+  final int userId;
   final String title;
   final String? description;
-  final String? thumbnail_path;
+  final String? thumbnailPath;
   final int? cost;
-  final int? location_id;
-  final DateTime? start_date;
-  final DateTime? end_date;
-  final bool is_public;
+  final int? locationId;
+  final DateTime? startDate;
+  final DateTime? endDate;
+  final bool isPublic;
   final List<String>? tags;
-  final DateTime created_at;
-  final DateTime updated_at;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   PostModel({
-    required this.plan_id,
-    required this.user_id,
+    required this.planId,
+    required this.userId,
     required this.title,
     this.description,
-    this.thumbnail_path,
+    this.thumbnailPath,
     this.cost,
-    this.location_id,
-    this.start_date,
-    this.end_date,
-    required this.is_public,
+    this.locationId,
+    this.startDate,
+    this.endDate,
+    required this.isPublic,
     this.tags,
-    required this.created_at,
-    required this.updated_at,
+    required this.createdAt,
+    required this.updatedAt,
   });
 }

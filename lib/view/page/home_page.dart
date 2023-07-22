@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => PostDetailPage(plan_id: post.plan_id),
+                builder: (context) => PostDetailPage(planId: post.planId),
               ));
         },
         // エフェクトの削除
@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(16),
                       child: Image.asset(
-                        post.thumbnail_path ?? StringConst.noImagePath,
+                        post.thumbnailPath ?? StringConst.noImagePath,
                         height: 80,
                         width: 80,
                         fit: BoxFit.cover,
@@ -121,12 +121,12 @@ class _HomePageState extends State<HomePage> {
                           // 日付
                           Row(
                             children: [
-                              if (post.start_date != null &&
-                                  post.end_date != null)
+                              if (post.startDate != null &&
+                                  post.endDate != null)
                                 Padding(
                                   padding: const EdgeInsets.only(top: 4.0),
                                   child: Text(
-                                    '${dateFormat.format(post.start_date!)} - ${dateFormat.format(post.end_date!)}',
+                                    '${dateFormat.format(post.startDate!)} - ${dateFormat.format(post.endDate!)}',
                                     style: const TextStyle(letterSpacing: 1.1),
                                   ),
                                 ),
