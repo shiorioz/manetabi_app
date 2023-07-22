@@ -4,8 +4,12 @@ import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/view/component/appbar_component.dart';
 import 'package:manetabi_app/view/page/bookmark_page.dart';
 import 'package:manetabi_app/view/page/home_page.dart';
+import 'package:manetabi_app/view/page/plan_add_page.dart';
+import 'package:manetabi_app/view/page/plan_copy_page.dart';
 import 'package:manetabi_app/view/page/profile_page.dart';
 import 'package:manetabi_app/view/page/search_page.dart';
+
+import '../constant/strings.dart';
 
 class Navigation extends StatefulWidget {
   const Navigation({super.key});
@@ -42,6 +46,7 @@ class _NavigationState extends State<Navigation> {
       bottomNavigationBar: BottomBarWithSheet(
         controller: _bottomBarController,
         bottomBarTheme: const BottomBarTheme(
+          heightOpened: 280,
           mainButtonPosition: MainButtonPosition.middle,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -77,53 +82,59 @@ class _NavigationState extends State<Navigation> {
   }
 
   Widget _addPlanWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        SizedBox(
-          width: 180,
-          height: 180,
-          child: Theme(
-            data: ThemeData(
-              splashColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-            ),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConst.grey,
-                foregroundColor: ColorConst.black,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                splashFactory: NoSplash.splashFactory,
-              ),
-              child: Text(
-                '新規作成',
-                style: TextStyle(fontSize: 20),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(20),
+            child: InkWell(
+              splashFactory: NoSplash.splashFactory,
+              highlightColor: Colors.grey.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PlanAddPage(),
+                    ));
+              },
+              child: const SizedBox(
+                width: 160,
+                height: 160,
+                child: Center(
+                    child: Text(StringConst.addPlan,
+                        style: TextStyle(fontSize: 20))),
               ),
             ),
           ),
-        ),
-        SizedBox(
-          width: 180,
-          height: 180,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: ColorConst.grey,
-              foregroundColor: ColorConst.black,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(20),
+            child: InkWell(
+              splashFactory: NoSplash.splashFactory,
+              highlightColor: Colors.grey.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(20),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const PlanCopyPage(),
+                    ));
+              },
+              child: const SizedBox(
+                width: 160,
+                height: 160,
+                child: Center(
+                    child: Text(StringConst.copyPlan,
+                        style: TextStyle(fontSize: 20))),
               ),
             ),
-            child: Text(
-              'コピーして作成',
-              style: TextStyle(fontSize: 20),
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
