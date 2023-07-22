@@ -7,8 +7,10 @@ environment:
   sdk: '>=3.0.3 <4.0.0'
 
 dependencies:
+  bottom_bar_with_sheet: ^2.4.0
   flutter:
     sdk: flutter
+  intl: ^0.18.1
   shared_preferences: ^2.2.0
 
 dev_dependencies:

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/controller/auth_controller.dart';
 import 'package:manetabi_app/view/navigation.dart';
 import 'package:manetabi_app/view/page/login_page.dart';
@@ -28,7 +29,13 @@ class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: _isLoggedIn == true ? Navigation() : LoginPage(),
+      theme: ThemeData(
+        iconTheme: const IconThemeData(
+          color: ColorConst.grey,
+        ),
+      ),
+      // home: _isLoggedIn == true ? Navigation() : LoginPage(),
+      home: Navigation(),
     );
   }
 }
