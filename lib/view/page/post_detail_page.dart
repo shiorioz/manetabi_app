@@ -126,8 +126,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
             ],
           ),
           const SizedBox(height: 20),
+          // タグ
+          _tagWidget(post.tags),
+          const SizedBox(height: 20),
           // 費用
           _costWidget(post.cost),
+          const SizedBox(height: 20),
+          //
         ],
       ),
     );
@@ -159,35 +164,70 @@ class _PostDetailPageState extends State<PostDetailPage> {
     if (cost != null) {
       final formatter = NumberFormat("#,###");
 
-      return Container(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            const Row(
-              children: [
-                // TODO: お金のアイコン変更
-                Icon(Icons.shopping_bag, size: 24, color: ColorConst.dark_grey),
-                SizedBox(width: 4),
-                Text(
-                  'budget ',
-                  style: TextStyle(fontSize: 20),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                const Icon(Icons.currency_yen,
-                    size: 16, color: ColorConst.black),
-                Text(formatter.format(cost),
-                    style: const TextStyle(fontSize: 16)),
-              ],
-            ),
-          ],
-        ),
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          const Row(
+            children: [
+              // TODO: お金のアイコン変更
+              Icon(Icons.shopping_bag, size: 24, color: ColorConst.dark_grey),
+              SizedBox(width: 4),
+              Text(
+                'budget ',
+                style: TextStyle(fontSize: 20),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Icon(Icons.currency_yen, size: 16, color: ColorConst.black),
+              Text(formatter.format(cost),
+                  style: const TextStyle(fontSize: 16)),
+            ],
+          ),
+        ],
       );
     } else {
       return const SizedBox(height: 20);
+    }
+  }
+
+  // タグウィジェット
+  Widget _tagWidget(List<String>? tags) {
+    if (tags != null) {
+      return SizedBox(
+        height: 30,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: tags.length,
+          itemBuilder: (context, tagIndex) {
+            return Padding(
+              padding: const EdgeInsets.only(right: 6.0),
+              child: Container(
+                decoration: BoxDecoration(
+                    color: ColorConst.grey,
+                    borderRadius: BorderRadius.circular(16)),
+                alignment: Alignment.center,
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.sell,
+                          size: 16, color: ColorConst.dark_grey),
+                      Text(tags[tagIndex],
+                          style: const TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      );
+    } else {
+      return const SizedBox(height: 30);
     }
   }
 }
