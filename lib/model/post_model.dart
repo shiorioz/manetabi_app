@@ -1,3 +1,5 @@
+import 'package:manetabi_app/model/block_model.dart';
+
 class PostModel {
   final int planId;
   final int userId;
@@ -13,6 +15,7 @@ class PostModel {
   final List<String>? tags;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<BlockModel>? block;
 
   PostModel({
     required this.planId,
@@ -28,5 +31,6 @@ class PostModel {
     this.tags,
     required this.createdAt,
     required this.updatedAt,
+    this.block,
   });
 }

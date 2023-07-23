@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
+import 'package:manetabi_app/model/block_model.dart';
 import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
 
 import '../../constant/colors.dart';
@@ -132,7 +133,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
           // 費用
           _costWidget(post.cost),
           const SizedBox(height: 20),
-          //
+          // ブロック
+          _blockWidget(post.block!),
         ],
       ),
     );
@@ -229,5 +231,22 @@ class _PostDetailPageState extends State<PostDetailPage> {
     } else {
       return const SizedBox(height: 30);
     }
+  }
+
+  Widget _blockWidget(List<BlockModel>? block) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.5,
+      decoration: BoxDecoration(color: Colors.red),
+      child: ListView.builder(
+        itemCount: block!.length,
+        itemBuilder: (context, index) {
+          return Column(
+            children: [
+              Text(block[index].blockName),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
