@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
 
@@ -7,7 +8,7 @@ import '../../model/post_model.dart';
 import '../component/menubar_component.dart';
 
 class PostDetailPage extends StatefulWidget {
-  final planId;
+  final int planId;
 
   const PostDetailPage({super.key, required this.planId});
 
@@ -39,93 +40,154 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
   Widget _postDetailFutureWidget(BuildContext context) {
     return SingleChildScrollView(
-      child: FutureBuilder(
-        future: _getPlan(),
-        builder: (context, AsyncSnapshot<dynamic> snapshot) {
-          // ロード中
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 20),
+        child: FutureBuilder(
+          future: _getPlan(),
+          builder: (context, AsyncSnapshot<dynamic> snapshot) {
+            // ロード中
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-          // データがエラーを返した場合
-          if (snapshot.hasError) {
-            return Center(
-              child: Text('エラー: ${snapshot.error}'),
-            );
-          } else if (!snapshot.hasData) {
-            // データが正常に返ってきた場合。
-            return const Center(
-              child: Text('データがありません。'),
-            );
-          }
+            // データがエラーを返した場合
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('エラー: ${snapshot.error}'),
+              );
+            } else if (!snapshot.hasData) {
+              // データが正常に返ってきた場合。
+              return const Center(
+                child: Text('データがありません。'),
+              );
+            }
 
-          final data = snapshot.data;
+            final data = snapshot.data;
 
-          return _displayPostWidget(data);
-        },
+            return _displayPostWidget(data);
+          },
+        ),
       ),
     );
   }
 
   // 詳細部分ウィジェット
   Widget _displayPostWidget(PostModel post) {
-    return Center(
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 40),
-              child: Text(
-                post.title,
-                style: const TextStyle(fontSize: 28),
+    return Container(
+      padding: const EdgeInsets.all(20),
+      child: Column(
+        children: [
+          // タイトルウィジェット
+          Container(
+            alignment: Alignment.centerLeft,
+            padding: const EdgeInsets.only(left: 40),
+            child: Text(
+              post.title,
+              style: const TextStyle(fontSize: 28),
+            ),
+          ),
+          const Divider(
+            thickness: 3,
+            color: ColorConst.dark_grey,
+            height: 20,
+          ),
+          // 場所・日付ウィジェット
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 2),
+                child: const Icon(
+                  Icons.location_on,
+                  size: 20,
+                  color: ColorConst.dark_grey,
+                ),
               ),
-            ),
-            const Divider(
-              thickness: 3,
-              color: ColorConst.dark_grey,
-              height: 20,
-            ),
-            SizedBox(
-              // width: 100
-              height: 30,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: post.location!.length,
-                itemBuilder: (context, index) {
-                  return _locationWidget(post.location![index]);
-                },
+              SizedBox(
+                height: 38,
+                width: MediaQuery.of(context).size.width * 0.50,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: post.location!.length,
+                  itemBuilder: (context, index) {
+                    return _locationWidget(post.location![index]);
+                  },
+                ),
               ),
-            ),
-          ],
-        ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 4),
+                child: Text(
+                  DateFormat('yyyy/MM/dd').format(post.createdAt),
+                  style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          // 費用
+          _costWidget(post.cost),
+        ],
       ),
     );
   }
 
+  // 場所ウィジェット
   Widget _locationWidget(String location) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        SizedBox(width: 10),
         Container(
-          decoration: BoxDecoration(
-            color: ColorConst.grey,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          padding: const EdgeInsets.only(top: 4, bottom: 4, right: 2),
           child: Row(
             children: [
-              const Icon(Icons.location_on,
-                  size: 18, color: ColorConst.dark_grey),
-              const SizedBox(width: 4),
-              Text(location),
+              const SizedBox(width: 2),
+              Text(
+                location,
+                style: const TextStyle(fontSize: 18),
+              ),
             ],
           ),
         ),
       ],
     );
+  }
+
+  // 費用ウィジェット
+  Widget _costWidget(int? cost) {
+    if (cost != null) {
+      final formatter = NumberFormat("#,###");
+
+      return Container(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            const Row(
+              children: [
+                // TODO: お金のアイコン変更
+                Icon(Icons.shopping_bag, size: 24, color: ColorConst.dark_grey),
+                SizedBox(width: 4),
+                Text(
+                  'budget ',
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                const Icon(Icons.currency_yen,
+                    size: 16, color: ColorConst.black),
+                Text(formatter.format(cost),
+                    style: const TextStyle(fontSize: 16)),
+              ],
+            ),
+          ],
+        ),
+      );
+    } else {
+      return const SizedBox(height: 20);
+    }
   }
 }

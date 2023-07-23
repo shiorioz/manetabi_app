@@ -6,7 +6,13 @@ class DetailController {
     userId: 1,
     title: '関西一周の旅',
     isPublic: true,
-    location: ['大阪', '京都', '奈良'],
+    location: [
+      '大阪',
+      '京都',
+      '奈良',
+      '神戸',
+    ],
+    cost: 100000,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
   );
