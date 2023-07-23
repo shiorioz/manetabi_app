@@ -40,36 +40,34 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 
   Widget _postDetailFutureWidget(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: FutureBuilder(
-          future: _getPlan(),
-          builder: (context, AsyncSnapshot<dynamic> snapshot) {
-            // ロード中
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: FutureBuilder(
+        future: _getPlan(),
+        builder: (context, AsyncSnapshot<dynamic> snapshot) {
+          // ロード中
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-            // データがエラーを返した場合
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('エラー: ${snapshot.error}'),
-              );
-            } else if (!snapshot.hasData) {
-              // データが正常に返ってきた場合。
-              return const Center(
-                child: Text('データがありません。'),
-              );
-            }
+          // データがエラーを返した場合
+          if (snapshot.hasError) {
+            return Center(
+              child: Text('エラー: ${snapshot.error}'),
+            );
+          } else if (!snapshot.hasData) {
+            // データが正常に返ってきた場合。
+            return const Center(
+              child: Text('データがありません。'),
+            );
+          }
 
-            final data = snapshot.data;
+          final data = snapshot.data;
 
-            return _displayPostWidget(data);
-          },
-        ),
+          return _displayPostWidget(data);
+        },
       ),
     );
   }
@@ -78,64 +76,66 @@ class _PostDetailPageState extends State<PostDetailPage> {
   Widget _displayPostWidget(PostModel post) {
     return Container(
       padding: const EdgeInsets.all(20),
-      child: Column(
-        children: [
-          // タイトルウィジェット
-          Container(
-            alignment: Alignment.centerLeft,
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              post.title,
-              style: const TextStyle(fontSize: 28),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            // タイトルウィジェット
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: const EdgeInsets.only(left: 40),
+              child: Text(
+                post.title,
+                style: const TextStyle(fontSize: 28),
+              ),
             ),
-          ),
-          const Divider(
-            thickness: 3,
-            color: ColorConst.dark_grey,
-            height: 20,
-          ),
-          // 場所・日付ウィジェット
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 2),
-                child: const Icon(
-                  Icons.location_on,
-                  size: 20,
-                  color: ColorConst.dark_grey,
+            const Divider(
+              thickness: 3,
+              color: ColorConst.dark_grey,
+              height: 20,
+            ),
+            // 場所・日付ウィジェット
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: const Icon(
+                    Icons.location_on,
+                    size: 20,
+                    color: ColorConst.dark_grey,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 38,
-                width: MediaQuery.of(context).size.width * 0.50,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: post.location!.length,
-                  itemBuilder: (context, index) {
-                    return _locationWidget(post.location![index]);
-                  },
+                SizedBox(
+                  height: 38,
+                  width: MediaQuery.of(context).size.width * 0.50,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: post.location!.length,
+                    itemBuilder: (context, index) {
+                      return _locationWidget(post.location![index]);
+                    },
+                  ),
                 ),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: Text(
-                  DateFormat('yyyy/MM/dd').format(post.createdAt),
-                  style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    DateFormat('yyyy/MM/dd').format(post.createdAt),
+                    style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          // タグ
-          _tagWidget(post.tags),
-          const SizedBox(height: 20),
-          // 費用
-          _costWidget(post.cost),
-          const SizedBox(height: 20),
-          // ブロック
-          _blockWidget(post.block!),
-        ],
+              ],
+            ),
+            const SizedBox(height: 20),
+            // タグ
+            _tagWidget(post.tags),
+            const SizedBox(height: 20),
+            // 費用
+            _costWidget(post.cost),
+            const SizedBox(height: 20),
+            // ブロック
+            _blockWidget(post.block!),
+          ],
+        ),
       ),
     );
   }
@@ -233,16 +233,70 @@ class _PostDetailPageState extends State<PostDetailPage> {
     }
   }
 
+  // Widget _blockWidget(List<BlockModel>? block) {
+  //   // TODO: startDateでソート・日付ごとに分ける
+  //   return ListView.builder(
+  //     itemCount: ,
+  //     itemBuilder: );
+  // }
+
+  // ブロックウィジェット
   Widget _blockWidget(List<BlockModel>? block) {
+    // bool _isTileExpanded = false;
+
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
-      decoration: BoxDecoration(color: Colors.red),
+      padding: const EdgeInsets.all(10),
       child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         itemCount: block!.length,
         itemBuilder: (context, index) {
-          return Column(
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(block[index].blockName),
+              Container(
+                padding: const EdgeInsets.only(top: 18),
+                child: Text(DateFormat('Hm').format(block[index].startDate),
+                    style: const TextStyle(fontSize: 20)),
+              ),
+              Theme(
+                data: Theme.of(context).copyWith(
+                    dividerColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent),
+                child: Expanded(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: ExpansionTile(
+                          textColor: ColorConst.black,
+                          iconColor: ColorConst.black,
+                          controlAffinity: ListTileControlAffinity.leading,
+                          leading: const Icon(Icons.arrow_drop_down),
+                          // 開閉でアイコン変更（うまくできない）
+                          // leading: Icon(_isTileExpanded
+                          //     ? Icons.arrow_drop_down
+                          //     : Icons.arrow_right),
+                          // onExpansionChanged: (bool expanded) {
+                          //   setState(() => _isTileExpanded = expanded);
+                          // },
+                          title:
+                              const Text('説明', style: TextStyle(fontSize: 20)),
+                          children: <Widget>[
+                            Container(
+                              height: 50,
+                              width: 80,
+                              child: Text('なかみ'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           );
         },

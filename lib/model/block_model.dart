@@ -10,6 +10,8 @@ class BlockModel {
   final String? details; // 詳細
   final DateTime createdAt; // 作成した時間
   final DateTime updatedAt; // 更新した時間
+  // TODO: 整理
+  final int? day; // 日数
 
   BlockModel({
     required this.blockId,
@@ -23,5 +25,6 @@ class BlockModel {
     this.details,
     required this.createdAt,
     required this.updatedAt,
+    this.day,
   });
 }

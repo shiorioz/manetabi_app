@@ -33,6 +33,17 @@ class DetailController {
           endDate: DateTime.now(),
           createdAt: DateTime.now(),
           updatedAt: DateTime.now(),
+          day: 1,
+        ),
+        BlockModel(
+          blockId: 2,
+          planId: 1,
+          blockName: 'USJ',
+          startDate: DateTime.now(),
+          endDate: DateTime.now(),
+          createdAt: DateTime.now(),
+          updatedAt: DateTime.now(),
+          day: 2,
         ),
       ]);
 
