@@ -159,8 +159,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   child: IconButton(
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
-                    // splashFactory: NoSplash.splashFactory,
-                    onPressed: () {},
+                    onPressed: () {
+                      // TODO: いいねボタンを押した時の処理
+                    },
                     icon: const Icon(
                       FontAwesomeIcons.solidHeart,
                       color: ColorConst.white,
@@ -185,12 +186,12 @@ class _PostDetailPageState extends State<PostDetailPage> {
             Row(
               children: [
                 const Icon(
-                  Icons.location_on,
+                  FontAwesomeIcons.locationDot,
                   size: 20,
                   color: ColorConst.dark_grey,
                 ),
-                SizedBox(width: 4),
-                Container(
+                const SizedBox(width: 4),
+                SizedBox(
                   height: 38,
                   width: MediaQuery.of(context).size.width * 0.20,
                   child: ListView.builder(
@@ -264,7 +265,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               padding: const EdgeInsets.only(right: 6.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConst.grey,
+                    color: ColorConst.jungle_mint,
                     borderRadius: BorderRadius.circular(16)),
                 alignment: Alignment.center,
                 child: Padding(
@@ -272,10 +273,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                   child: Row(
                     children: [
-                      const Icon(Icons.sell,
+                      const Icon(FontAwesomeIcons.tag,
                           size: 16, color: ColorConst.dark_grey),
+                      const SizedBox(width: 4),
                       Text(tags[tagIndex],
-                          style: const TextStyle(fontSize: 16)),
+                          style: const TextStyle(
+                            fontSize: 16,
+                          )),
                     ],
                   ),
                 ),
@@ -323,7 +327,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
                           textColor: ColorConst.black,
                           iconColor: ColorConst.black,
                           controlAffinity: ListTileControlAffinity.leading,
-                          leading: const Icon(Icons.arrow_drop_down),
+                          leading: const Icon(FontAwesomeIcons.sortDown,
+                              size: 18, color: ColorConst.dark_grey),
                           // 開閉でアイコン変更（うまくできない）
                           // leading: Icon(_isTileExpanded
                           //     ? Icons.arrow_drop_down
