@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -120,63 +122,64 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 
   Widget _headlineWidget(PostModel post) {
-    return Row(
+    return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        // 画像
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.asset(
-            post.thumbnailPath ?? StringConst.noImagePath,
-            height: 100,
-            width: 100,
-            fit: BoxFit.cover,
+        // サムネイル画像
+        if (post.thumbnailPath != null)
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                post.thumbnailPath!,
+                height: 120,
+                width: MediaQuery.of(context).size.width * 0.9,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
+        const SizedBox(height: 20),
+        // タイトルウィジェット
+        Text(
+          post.title,
+          style: const TextStyle(fontSize: 28),
         ),
-        Column(
+        const Divider(
+          thickness: 3,
+          color: ColorConst.dark_grey,
+          height: 20,
+        ),
+        // 場所・日付ウィジェット
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            // タイトルウィジェット
-            Text(
-              post.title,
-              style: const TextStyle(fontSize: 28),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 2),
+              child: const Icon(
+                Icons.location_on,
+                size: 20,
+                color: ColorConst.dark_grey,
+              ),
             ),
-            // TODO: divider表示されない
-            const Divider(
-              thickness: 3,
-              color: ColorConst.dark_grey,
-              height: 20,
+            SizedBox(
+              height: 38,
+              width: MediaQuery.of(context).size.width * 0.20,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: post.location!.length,
+                itemBuilder: (context, index) {
+                  return _locationWidget(post.location![index]);
+                },
+              ),
             ),
-            // 場所・日付ウィジェット
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: const Icon(
-                    Icons.location_on,
-                    size: 20,
-                    color: ColorConst.dark_grey,
-                  ),
-                ),
-                SizedBox(
-                  height: 38,
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: post.location!.length,
-                    itemBuilder: (context, index) {
-                      return _locationWidget(post.location![index]);
-                    },
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    DateFormat('yyyy/MM/dd').format(post.createdAt),
-                    style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
-                  ),
-                ),
-              ],
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                DateFormat('yyyy/MM/dd').format(post.createdAt),
+                style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+              ),
             ),
           ],
         ),
@@ -257,13 +260,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
     }
   }
 
-  // Widget _blockWidget(List<BlockModel>? block) {
-  //   // TODO: startDateでソート・日付ごとに分ける
-  //   return ListView.builder(
-  //     itemCount: ,
-  //     itemBuilder: );
-  // }
-
   // ブロックウィジェット
   Widget _blockWidget(List<BlockModel>? block) {
     // bool _isTileExpanded = false;
@@ -306,14 +302,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
                           // onExpansionChanged: (bool expanded) {
                           //   setState(() => _isTileExpanded = expanded);
                           // },
-                          title:
-                              const Text('説明', style: TextStyle(fontSize: 20)),
+                          title: Text(block[index].blockName,
+                              style: TextStyle(fontSize: 20)),
                           children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 80,
-                              child: Text('なかみ'),
-                            ),
+                            _detailTextWidget(block[index]),
                           ],
                         ),
                       ),
@@ -326,5 +318,15 @@ class _PostDetailPageState extends State<PostDetailPage> {
         },
       ),
     );
+  }
+
+  // detailTextウィジェット
+  Widget _detailTextWidget(BlockModel block) {
+    if (block.details != null) {
+      return Container(
+        child: Text(block.details!),
+      );
+    }
+    return SizedBox(height: 20);
   }
 }
