@@ -123,7 +123,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
   Widget _headlineWidget(PostModel post) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         // サムネイル画像
         if (post.thumbnailPath != null)
@@ -142,9 +142,14 @@ class _PostDetailPageState extends State<PostDetailPage> {
           ),
         const SizedBox(height: 20),
         // タイトルウィジェット
-        Text(
-          post.title,
-          style: const TextStyle(fontSize: 28),
+        Row(
+          children: [
+            Text(
+              post.title,
+              style: const TextStyle(fontSize: 28),
+            ),
+            IconButton(onPressed: () {}, icon: Icon(Icons.heart_broken)),
+          ],
         ),
         const Divider(
           thickness: 3,
@@ -154,25 +159,28 @@ class _PostDetailPageState extends State<PostDetailPage> {
         // 場所・日付ウィジェット
         Row(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 2),
-              child: const Icon(
-                Icons.location_on,
-                size: 20,
-                color: ColorConst.dark_grey,
-              ),
-            ),
-            SizedBox(
-              height: 38,
-              width: MediaQuery.of(context).size.width * 0.20,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: post.location!.length,
-                itemBuilder: (context, index) {
-                  return _locationWidget(post.location![index]);
-                },
-              ),
+            Row(
+              children: [
+                const Icon(
+                  Icons.location_on,
+                  size: 20,
+                  color: ColorConst.dark_grey,
+                ),
+                SizedBox(width: 4),
+                Container(
+                  height: 38,
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: post.location!.length,
+                    itemBuilder: (context, index) {
+                      return _locationWidget(post.location![index]);
+                    },
+                  ),
+                ),
+              ],
             ),
             Container(
               padding: const EdgeInsets.symmetric(vertical: 4),
