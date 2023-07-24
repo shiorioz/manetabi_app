@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/model/block_model.dart';
 import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
 
 import '../../constant/colors.dart';
+import '../../constant/strings.dart';
 import '../../model/post_model.dart';
 import '../component/menubar_component.dart';
 
@@ -79,52 +81,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // タイトルウィジェット
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 40),
-              child: Text(
-                post.title,
-                style: const TextStyle(fontSize: 28),
-              ),
-            ),
-            const Divider(
-              thickness: 3,
-              color: ColorConst.dark_grey,
-              height: 20,
-            ),
-            // 場所・日付ウィジェット
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: const Icon(
-                    Icons.location_on,
-                    size: 20,
-                    color: ColorConst.dark_grey,
-                  ),
-                ),
-                SizedBox(
-                  height: 38,
-                  width: MediaQuery.of(context).size.width * 0.50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: post.location!.length,
-                    itemBuilder: (context, index) {
-                      return _locationWidget(post.location![index]);
-                    },
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    DateFormat('yyyy/MM/dd').format(post.createdAt),
-                    style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
-                  ),
-                ),
-              ],
-            ),
+            // 見出し
+            _headlineWidget(post),
             const SizedBox(height: 20),
             // タグ
             _tagWidget(post.tags),
@@ -161,6 +119,71 @@ class _PostDetailPageState extends State<PostDetailPage> {
     );
   }
 
+  Widget _headlineWidget(PostModel post) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        // 画像
+        ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Image.asset(
+            post.thumbnailPath ?? StringConst.noImagePath,
+            height: 100,
+            width: 100,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Column(
+          children: [
+            // タイトルウィジェット
+            Text(
+              post.title,
+              style: const TextStyle(fontSize: 28),
+            ),
+            // TODO: divider表示されない
+            const Divider(
+              thickness: 3,
+              color: ColorConst.dark_grey,
+              height: 20,
+            ),
+            // 場所・日付ウィジェット
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                  child: const Icon(
+                    Icons.location_on,
+                    size: 20,
+                    color: ColorConst.dark_grey,
+                  ),
+                ),
+                SizedBox(
+                  height: 38,
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: post.location!.length,
+                    itemBuilder: (context, index) {
+                      return _locationWidget(post.location![index]);
+                    },
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    DateFormat('yyyy/MM/dd').format(post.createdAt),
+                    style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   // 費用ウィジェット
   Widget _costWidget(int? cost) {
     if (cost != null) {
@@ -173,7 +196,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
           const Row(
             children: [
               // TODO: お金のアイコン変更
-              Icon(Icons.shopping_bag, size: 24, color: ColorConst.dark_grey),
+              Icon(FontAwesomeIcons.sackDollar,
+                  size: 22, color: ColorConst.dark_grey),
               SizedBox(width: 4),
               Text(
                 'budget ',

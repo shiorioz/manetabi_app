@@ -9,9 +9,9 @@ class DetailController {
       isPublic: true,
       location: [
         '大阪',
-        '京都',
-        '奈良',
-        '神戸',
+        // '京都',
+        // '奈良',
+        // '神戸',
       ],
       tags: [
         '4人旅',
