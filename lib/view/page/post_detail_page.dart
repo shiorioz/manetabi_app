@@ -143,12 +143,33 @@ class _PostDetailPageState extends State<PostDetailPage> {
         const SizedBox(height: 20),
         // タイトルウィジェット
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               post.title,
               style: const TextStyle(fontSize: 28),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.heart_broken)),
+            SizedBox(
+              height: 34,
+              child: Material(
+                color: ColorConst.pink,
+                shape: const CircleBorder(),
+                child: InkWell(
+                  radius: 20,
+                  child: IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    // splashFactory: NoSplash.splashFactory,
+                    onPressed: () {},
+                    icon: const Icon(
+                      FontAwesomeIcons.solidHeart,
+                      color: ColorConst.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
         const Divider(

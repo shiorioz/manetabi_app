@@ -8,4 +8,5 @@ class ColorConst {
   static const Color yellow = Colors.yellow;
   static const Color jungle_mint = Color.fromRGBO(185, 225, 225, 1);
   static const Color schoolbus_yellow = Color.fromRGBO(255, 230, 90, 1);
+  static Color? pink = Color.fromRGBO(255, 167, 167, 1);
 }
