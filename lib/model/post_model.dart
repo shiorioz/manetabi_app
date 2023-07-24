@@ -1,3 +1,5 @@
+import 'package:manetabi_app/model/block_model.dart';
+
 class PostModel {
   final int planId;
   final int userId;
@@ -5,13 +7,15 @@ class PostModel {
   final String? description;
   final String? thumbnailPath;
   final int? cost;
-  final int? locationId;
+  // final int? locationId;
+  final List<String>? location;
   final DateTime? startDate;
   final DateTime? endDate;
   final bool isPublic;
   final List<String>? tags;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final List<BlockModel>? block;
 
   PostModel({
     required this.planId,
@@ -20,12 +24,13 @@ class PostModel {
     this.description,
     this.thumbnailPath,
     this.cost,
-    this.locationId,
+    this.location,
     this.startDate,
     this.endDate,
     required this.isPublic,
     this.tags,
     required this.createdAt,
     required this.updatedAt,
+    this.block,
   });
 }
