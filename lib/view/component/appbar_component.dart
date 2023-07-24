@@ -13,7 +13,7 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
         StringConst.appName.toUpperCase(),
         style: const TextStyle(color: Colors.black),
       ),
-      backgroundColor: ColorConst.white,
+      backgroundColor: ColorConst.jungle_mint,
     );
   }
 

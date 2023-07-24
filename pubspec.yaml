@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   font_awesome_flutter: ^10.5.0
+  icon_decoration: ^2.0.2
   intl: ^0.18.1
   shared_preferences: ^2.2.0
 
