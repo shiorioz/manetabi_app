@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manetabi_app/constant/color_const.dart';
+import 'package:manetabi_app/constant/colors.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
