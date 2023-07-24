@@ -304,47 +304,66 @@ class _PostDetailPageState extends State<PostDetailPage> {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: block!.length,
         itemBuilder: (context, index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Text(DateFormat('Hm').format(block[index].startDate),
-                    style: const TextStyle(fontSize: 20)),
-              ),
-              Theme(
-                data: Theme.of(context).copyWith(
-                    dividerColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent),
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: ExpansionTile(
-                          textColor: ColorConst.black,
-                          iconColor: ColorConst.black,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          leading: const Icon(FontAwesomeIcons.sortDown,
-                              size: 18, color: ColorConst.dark_grey),
-                          // 開閉でアイコン変更（うまくできない）
-                          // leading: Icon(_isTileExpanded
-                          //     ? Icons.arrow_drop_down
-                          //     : Icons.arrow_right),
-                          // onExpansionChanged: (bool expanded) {
-                          //   setState(() => _isTileExpanded = expanded);
-                          // },
-                          title: Text(block[index].blockName,
-                              style: TextStyle(fontSize: 20)),
-                          children: <Widget>[
-                            _detailTextWidget(block[index]),
+              if (block[index].day != block[(index - 1) % block.length].day)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'day${block[index].day}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: Text(
+                          DateFormat('Hm').format(block[index].startDate),
+                          style: const TextStyle(fontSize: 20)),
+                    ),
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent),
+                      child: Expanded(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: ExpansionTile(
+                                textColor: ColorConst.black,
+                                iconColor: ColorConst.black,
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                leading: const Icon(FontAwesomeIcons.sortDown,
+                                    size: 18, color: ColorConst.dark_grey),
+                                // 開閉でアイコン変更（うまくできない）
+                                // leading: Icon(_isTileExpanded
+                                //     ? Icons.arrow_drop_down
+                                //     : Icons.arrow_right),
+                                // onExpansionChanged: (bool expanded) {
+                                //   setState(() => _isTileExpanded = expanded);
+                                // },
+                                title: Text(block[index].blockName,
+                                    style: TextStyle(fontSize: 20)),
+                                children: <Widget>[
+                                  _detailTextWidget(block[index]),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
