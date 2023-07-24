@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/model/block_model.dart';
 import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
 
 import '../../constant/colors.dart';
+import '../../constant/strings.dart';
 import '../../model/post_model.dart';
 import '../component/menubar_component.dart';
 
@@ -79,52 +83,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // タイトルウィジェット
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 40),
-              child: Text(
-                post.title,
-                style: const TextStyle(fontSize: 28),
-              ),
-            ),
-            const Divider(
-              thickness: 3,
-              color: ColorConst.dark_grey,
-              height: 20,
-            ),
-            // 場所・日付ウィジェット
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 2),
-                  child: const Icon(
-                    Icons.location_on,
-                    size: 20,
-                    color: ColorConst.dark_grey,
-                  ),
-                ),
-                SizedBox(
-                  height: 38,
-                  width: MediaQuery.of(context).size.width * 0.50,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: post.location!.length,
-                    itemBuilder: (context, index) {
-                      return _locationWidget(post.location![index]);
-                    },
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    DateFormat('yyyy/MM/dd').format(post.createdAt),
-                    style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
-                  ),
-                ),
-              ],
-            ),
+            // 見出し
+            _headlineWidget(post),
             const SizedBox(height: 20),
             // タグ
             _tagWidget(post.tags),
@@ -161,6 +121,102 @@ class _PostDetailPageState extends State<PostDetailPage> {
     );
   }
 
+  Widget _headlineWidget(PostModel post) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // サムネイル画像
+        if (post.thumbnailPath != null)
+          Material(
+            elevation: 10,
+            borderRadius: BorderRadius.circular(10),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset(
+                post.thumbnailPath!,
+                height: 120,
+                width: MediaQuery.of(context).size.width * 0.9,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        const SizedBox(height: 20),
+        // タイトルウィジェット
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              post.title,
+              style: const TextStyle(fontSize: 28),
+            ),
+            SizedBox(
+              height: 34,
+              child: Material(
+                color: ColorConst.pink,
+                shape: const CircleBorder(),
+                child: InkWell(
+                  radius: 20,
+                  child: IconButton(
+                    splashColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onPressed: () {
+                      // TODO: いいねボタンを押した時の処理
+                    },
+                    icon: const Icon(
+                      FontAwesomeIcons.solidHeart,
+                      color: ColorConst.white,
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        const Divider(
+          thickness: 3,
+          color: ColorConst.dark_grey,
+          height: 20,
+        ),
+        // 場所・日付ウィジェット
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Row(
+              children: [
+                const Icon(
+                  FontAwesomeIcons.locationDot,
+                  size: 20,
+                  color: ColorConst.dark_grey,
+                ),
+                const SizedBox(width: 4),
+                SizedBox(
+                  height: 38,
+                  width: MediaQuery.of(context).size.width * 0.20,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: post.location!.length,
+                    itemBuilder: (context, index) {
+                      return _locationWidget(post.location![index]);
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: Text(
+                DateFormat('yyyy/MM/dd').format(post.createdAt),
+                style: const TextStyle(fontSize: 16, letterSpacing: 1.0),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
   // 費用ウィジェット
   Widget _costWidget(int? cost) {
     if (cost != null) {
@@ -173,7 +229,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
           const Row(
             children: [
               // TODO: お金のアイコン変更
-              Icon(Icons.shopping_bag, size: 24, color: ColorConst.dark_grey),
+              Icon(FontAwesomeIcons.sackDollar,
+                  size: 22, color: ColorConst.dark_grey),
               SizedBox(width: 4),
               Text(
                 'budget ',
@@ -208,7 +265,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               padding: const EdgeInsets.only(right: 6.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConst.grey,
+                    color: ColorConst.jungle_mint,
                     borderRadius: BorderRadius.circular(16)),
                 alignment: Alignment.center,
                 child: Padding(
@@ -216,10 +273,13 @@ class _PostDetailPageState extends State<PostDetailPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
                   child: Row(
                     children: [
-                      const Icon(Icons.sell,
+                      const Icon(FontAwesomeIcons.tag,
                           size: 16, color: ColorConst.dark_grey),
+                      const SizedBox(width: 4),
                       Text(tags[tagIndex],
-                          style: const TextStyle(fontSize: 16)),
+                          style: const TextStyle(
+                            fontSize: 16,
+                          )),
                     ],
                   ),
                 ),
@@ -233,13 +293,6 @@ class _PostDetailPageState extends State<PostDetailPage> {
     }
   }
 
-  // Widget _blockWidget(List<BlockModel>? block) {
-  //   // TODO: startDateでソート・日付ごとに分ける
-  //   return ListView.builder(
-  //     itemCount: ,
-  //     itemBuilder: );
-  // }
-
   // ブロックウィジェット
   Widget _blockWidget(List<BlockModel>? block) {
     // bool _isTileExpanded = false;
@@ -251,50 +304,66 @@ class _PostDetailPageState extends State<PostDetailPage> {
         physics: const NeverScrollableScrollPhysics(),
         itemCount: block!.length,
         itemBuilder: (context, index) {
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                padding: const EdgeInsets.only(top: 18),
-                child: Text(DateFormat('Hm').format(block[index].startDate),
-                    style: const TextStyle(fontSize: 20)),
-              ),
-              Theme(
-                data: Theme.of(context).copyWith(
-                    dividerColor: Colors.transparent,
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent),
-                child: Expanded(
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: ExpansionTile(
-                          textColor: ColorConst.black,
-                          iconColor: ColorConst.black,
-                          controlAffinity: ListTileControlAffinity.leading,
-                          leading: const Icon(Icons.arrow_drop_down),
-                          // 開閉でアイコン変更（うまくできない）
-                          // leading: Icon(_isTileExpanded
-                          //     ? Icons.arrow_drop_down
-                          //     : Icons.arrow_right),
-                          // onExpansionChanged: (bool expanded) {
-                          //   setState(() => _isTileExpanded = expanded);
-                          // },
-                          title:
-                              const Text('説明', style: TextStyle(fontSize: 20)),
-                          children: <Widget>[
-                            Container(
-                              height: 50,
-                              width: 80,
-                              child: Text('なかみ'),
+              if (block[index].day != block[(index - 1) % block.length].day)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'day${block[index].day}',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 18),
+                      child: Text(
+                          DateFormat('Hm').format(block[index].startDate),
+                          style: const TextStyle(fontSize: 20)),
+                    ),
+                    Theme(
+                      data: Theme.of(context).copyWith(
+                          dividerColor: Colors.transparent,
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent),
+                      child: Expanded(
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: ExpansionTile(
+                                textColor: ColorConst.black,
+                                iconColor: ColorConst.black,
+                                controlAffinity:
+                                    ListTileControlAffinity.leading,
+                                leading: const Icon(FontAwesomeIcons.sortDown,
+                                    size: 18, color: ColorConst.dark_grey),
+                                // 開閉でアイコン変更（うまくできない）
+                                // leading: Icon(_isTileExpanded
+                                //     ? Icons.arrow_drop_down
+                                //     : Icons.arrow_right),
+                                // onExpansionChanged: (bool expanded) {
+                                //   setState(() => _isTileExpanded = expanded);
+                                // },
+                                title: Text(block[index].blockName,
+                                    style: TextStyle(fontSize: 20)),
+                                children: <Widget>[
+                                  _detailTextWidget(block[index]),
+                                ],
+                              ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -302,5 +371,15 @@ class _PostDetailPageState extends State<PostDetailPage> {
         },
       ),
     );
+  }
+
+  // detailTextウィジェット
+  Widget _detailTextWidget(BlockModel block) {
+    if (block.details != null) {
+      return Container(
+        child: Text(block.details!),
+      );
+    }
+    return SizedBox(height: 20);
   }
 }

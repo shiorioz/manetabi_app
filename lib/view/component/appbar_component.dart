@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manetabi_app/constant/colors.dart';
 
 import '../../constant/strings.dart';
 
@@ -12,7 +13,7 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
         StringConst.appName.toUpperCase(),
         style: const TextStyle(color: Colors.black),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: ColorConst.jungle_mint,
     );
   }
 
