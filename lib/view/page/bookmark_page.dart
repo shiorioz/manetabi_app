@@ -3,6 +3,7 @@ import 'package:manetabi_app/controller/bookmark_controller.dart';
 import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 import 'package:manetabi_app/view/component/card_component.dart';
+import 'package:manetabi_app/view/page/post_detail_page.dart';
 
 class BookmarkPage extends StatefulWidget {
   const BookmarkPage({super.key});
@@ -37,7 +38,16 @@ class _BookmarkPageState extends State<BookmarkPage> {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CardComponent(post: _posts[index]),
+                      CardComponent(
+                        post: _posts[index],
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => PostDetailPage(
+                                      planId: _posts[index].planId)));
+                        },
+                      ),
                       const SizedBox(height: 10),
                     ],
                   );

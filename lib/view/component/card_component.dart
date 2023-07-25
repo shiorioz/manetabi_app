@@ -7,8 +7,12 @@ import '../../model/post_model.dart';
 
 class CardComponent extends StatelessWidget {
   final PostModel _post;
+  final Function() _onTap;
 
-  const CardComponent({super.key, required PostModel post}) : _post = post;
+  const CardComponent(
+      {super.key, required PostModel post, required Function() onTap})
+      : _post = post,
+        _onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +24,7 @@ class CardComponent extends StatelessWidget {
     DateFormat dateFormat = DateFormat('yyyy/MM/dd');
 
     return InkWell(
-      onTap: () {
-        // TODO:
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => _nextPage(post: post),
-        //   ),
-        // );
-      },
-      // エフェクトの削除
+      onTap: _onTap,
       splashFactory: NoSplash.splashFactory,
       splashColor: Colors.transparent,
       child: Card(
