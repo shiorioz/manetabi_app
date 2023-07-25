@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manetabi_app/constant/strings.dart';
+import 'package:manetabi_app/constant/style.dart';
 
 import '../../constant/colors.dart';
 
@@ -66,8 +67,12 @@ class _SearchPageState extends State<SearchPage> {
               child: const TextField(
                 decoration: InputDecoration(
                   labelText: 'keyword',
-                  labelStyle:
-                      TextStyle(color: ColorConst.dark_grey, fontSize: 20),
+                  labelStyle: TextStyle(
+                    color: ColorConst.dark_grey,
+                    fontSize: 22,
+                    fontFamily: StyleConst.customFont,
+                    letterSpacing: 1.2,
+                  ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -119,6 +124,7 @@ class _SearchPageState extends State<SearchPage> {
     return ElevatedButton.icon(
       onPressed: () {
         // TODO: 検索処理
+        // Navigator.push(context, MaterialPageRoute(builder: (context)=>));
       },
       icon: const Icon(
         FontAwesomeIcons.magnifyingGlass,
@@ -126,7 +132,12 @@ class _SearchPageState extends State<SearchPage> {
       ),
       label: const Text(
         'search',
-        style: TextStyle(fontSize: 20, color: ColorConst.dark_grey),
+        style: TextStyle(
+          fontSize: 24,
+          color: ColorConst.dark_grey,
+          fontFamily: StyleConst.customFont,
+          letterSpacing: 1.6,
+        ),
       ),
       style: ElevatedButton.styleFrom(
         backgroundColor: ColorConst.schoolbus_yellow,
@@ -134,7 +145,7 @@ class _SearchPageState extends State<SearchPage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 36),
+        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 32),
       ),
     );
   }
