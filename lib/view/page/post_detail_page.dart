@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/model/block_model.dart';
-import 'package:manetabi_app/view/component/bottom_one_btn_component.dart';
+import 'package:manetabi_app/view/component/icon_btn_component.dart';
 
 import '../../constant/colors.dart';
 import '../../constant/strings.dart';
@@ -30,15 +30,18 @@ class _PostDetailPageState extends State<PostDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const MenubarComp(),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          _postDetailFutureWidget(context),
-          ButtomOneBtnComp(
-            context,
-            btnText: 'プラン複製',
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _postDetailFutureWidget(context),
+            IconBtnComponent(
+              context,
+              btnText: StringConst.keep,
+              icon: FontAwesomeIcons.solidCircleDown,
+            ),
+            const SizedBox(height: 40),
+          ],
+        ),
       ),
     );
   }

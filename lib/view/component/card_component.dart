@@ -4,97 +4,88 @@ import 'package:intl/intl.dart';
 import '../../constant/colors.dart';
 import '../../constant/strings.dart';
 import '../../model/post_model.dart';
-import '../page/post_detail_page.dart';
 
 class CardComponent extends StatelessWidget {
   final PostModel _post;
+  final Function() _onTap;
 
-  const CardComponent({super.key, required PostModel post}) : _post = post;
+  const CardComponent(
+      {super.key, required PostModel post, required Function() onTap})
+      : _post = post,
+        _onTap = onTap;
 
   @override
   Widget build(BuildContext context) {
     return _oneCard(_post, context);
   }
 
+  // カード（1枚）ウィジェット
   Widget _oneCard(PostModel post, BuildContext context) {
     DateFormat dateFormat = DateFormat('yyyy/MM/dd');
 
-    return Container(
-      height: 130,
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(40)),
-      child: InkWell(
-        onTap: () {
-          // detailページに遷移
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PostDetailPage(planId: post.planId),
-              ));
-        },
-        // エフェクトの削除
-        splashFactory: NoSplash.splashFactory,
-        splashColor: Colors.transparent,
-        // highlightColor: Colors.transparent,
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.asset(
-                        post.thumbnailPath ?? StringConst.noImagePath,
-                        height: 80,
-                        width: 80,
-                        fit: BoxFit.cover,
-                      ),
+    return InkWell(
+      onTap: _onTap,
+      splashFactory: NoSplash.splashFactory,
+      splashColor: Colors.transparent,
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.asset(
+                      post.thumbnailPath ?? StringConst.noImagePath,
+                      height: 80,
+                      width: 80,
+                      fit: BoxFit.cover,
                     ),
-                    const SizedBox(width: 30),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8),
+                  ),
+                  const SizedBox(width: 30),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8),
+                          child: Text(
+                            post.title,
+                            style: const TextStyle(fontSize: 20),
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        const Divider(
+                            thickness: 3,
+                            color: ColorConst.dark_grey,
+                            height: 6,
+                            endIndent: 48),
+                        // タグ
+                        _tagsWidget(post, post.tags != null),
+                        const SizedBox(height: 4),
+                        // 日付
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
                             child: Text(
-                              post.title,
-                              style: const TextStyle(fontSize: 20),
-                              textAlign: TextAlign.start,
+                              dateFormat.format(post.createdAt),
+                              style: const TextStyle(
+                                  letterSpacing: 1.1, fontSize: 12),
                             ),
                           ),
-                          const Divider(
-                              thickness: 3,
-                              color: ColorConst.dark_grey,
-                              height: 6,
-                              endIndent: 48),
-                          // タグ
-                          _tagsWidget(post, post.tags != null),
-                          // 日付
-                          Row(
-                            children: [
-                              if (post.startDate != null &&
-                                  post.endDate != null)
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 4.0),
-                                  child: Text(
-                                    '${dateFormat.format(post.startDate!)} - ${dateFormat.format(post.endDate!)}',
-                                    style: const TextStyle(letterSpacing: 1.1),
-                                  ),
-                                ),
-                            ],
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const Icon(Icons.chevron_right,
-                        size: 40, color: ColorConst.dark_grey),
-                  ],
-                ),
-              ],
-            ),
+                  )
+                ],
+              ),
+            ],
           ),
         ),
       ),
