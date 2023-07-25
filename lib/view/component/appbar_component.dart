@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:manetabi_app/constant/colors.dart';
+import 'package:manetabi_app/constant/style.dart';
 
 import '../../constant/strings.dart';
 
@@ -9,11 +11,44 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(
-        StringConst.appName.toUpperCase(),
-        style: const TextStyle(color: Colors.black),
-      ),
+      centerTitle: false,
       backgroundColor: ColorConst.jungle_mint,
+      title: const Padding(
+        padding: EdgeInsets.only(left: 24.0),
+        child: Text(
+          StringConst.appName,
+          style: TextStyle(
+            color: ColorConst.dark_grey,
+            fontSize: 32,
+            fontFamily: StyleConst.customFont,
+            letterSpacing: 1.4,
+            shadows: [
+              Shadow(
+                color: ColorConst.white,
+                offset: Offset(3, 2),
+              ),
+            ],
+          ),
+        ),
+      ),
+      actions: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                FontAwesomeIcons.solidBell,
+                color: ColorConst.white,
+                shadows: [
+                  Shadow(
+                    color: ColorConst.shadow_grey,
+                    blurRadius: 3,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              )),
+        )
+      ],
     );
   }
 

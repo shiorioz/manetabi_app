@@ -26,3 +26,9 @@ flutter:
   # テスト用画像フォルダ
   assets:
     - assets/images/
+
+  # フォント
+  fonts:
+    - family: JockeyOne
+      fonts:
+        - asset: assets/fonts/Jockey_One/JockeyOne-Regular.ttf

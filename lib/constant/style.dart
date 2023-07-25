@@ -1,3 +1,3 @@
 class StyleConst {
-  // static const String FontFamily = 'Noto Sans JP';
+  static const String customFont = 'JockeyOne';
 }
