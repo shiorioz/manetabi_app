@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -179,7 +177,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
         ),
         const Divider(
           thickness: 3,
-          color: ColorConst.dark_grey,
+          color: ColorConst.darkGrey,
           height: 20,
         ),
         // 場所・日付ウィジェット
@@ -192,7 +190,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 const Icon(
                   FontAwesomeIcons.locationDot,
                   size: 20,
-                  color: ColorConst.dark_grey,
+                  color: ColorConst.darkGrey,
                 ),
                 const SizedBox(width: 4),
                 SizedBox(
@@ -234,7 +232,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             children: [
               // TODO: お金のアイコン変更
               Icon(FontAwesomeIcons.sackDollar,
-                  size: 22, color: ColorConst.dark_grey),
+                  size: 22, color: ColorConst.darkGrey),
               SizedBox(width: 4),
               Text(
                 'budget ',
@@ -269,7 +267,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               padding: const EdgeInsets.only(right: 6.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConst.jungle_mint,
+                    color: ColorConst.jungleMint,
                     borderRadius: BorderRadius.circular(16)),
                 alignment: Alignment.center,
                 child: Padding(
@@ -278,7 +276,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   child: Row(
                     children: [
                       const Icon(FontAwesomeIcons.tag,
-                          size: 16, color: ColorConst.dark_grey),
+                          size: 16, color: ColorConst.darkGrey),
                       const SizedBox(width: 4),
                       Text(tags[tagIndex],
                           style: const TextStyle(
@@ -348,7 +346,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                 controlAffinity:
                                     ListTileControlAffinity.leading,
                                 leading: const Icon(FontAwesomeIcons.sortDown,
-                                    size: 18, color: ColorConst.dark_grey),
+                                    size: 18, color: ColorConst.darkGrey),
                                 // 開閉でアイコン変更（うまくできない）
                                 // leading: Icon(_isTileExpanded
                                 //     ? Icons.arrow_drop_down
@@ -357,7 +355,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                                 //   setState(() => _isTileExpanded = expanded);
                                 // },
                                 title: Text(block[index].blockName,
-                                    style: TextStyle(fontSize: 20)),
+                                    style: const TextStyle(fontSize: 20)),
                                 children: <Widget>[
                                   _detailTextWidget(block[index]),
                                 ],
@@ -380,10 +378,8 @@ class _PostDetailPageState extends State<PostDetailPage> {
   // detailTextウィジェット
   Widget _detailTextWidget(BlockModel block) {
     if (block.details != null) {
-      return Container(
-        child: Text(block.details!),
-      );
+      return Text(block.details!);
     }
-    return SizedBox(height: 20);
+    return const SizedBox(height: 20);
   }
 }

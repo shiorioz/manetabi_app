@@ -44,12 +44,12 @@ class _SearchPageState extends State<SearchPage> {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
-        color: ColorConst.jungle_mint,
+        color: ColorConst.jungleMint,
         borderRadius: BorderRadius.circular(45),
         boxShadow: const [
           BoxShadow(
               blurRadius: 2,
-              color: ColorConst.shadow_grey,
+              color: ColorConst.shadowGrey,
               spreadRadius: 0.5,
               offset: Offset(0, 3)),
         ],
@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                 boxShadow: const [
                   BoxShadow(
                       blurRadius: 2,
-                      color: ColorConst.shadow_grey,
+                      color: ColorConst.shadowGrey,
                       spreadRadius: 0.5,
                       offset: Offset(0, 3)),
                 ],
@@ -74,7 +74,7 @@ class _SearchPageState extends State<SearchPage> {
                 decoration: InputDecoration(
                   labelText: 'keyword',
                   labelStyle: TextStyle(
-                    color: ColorConst.dark_grey,
+                    color: ColorConst.darkGrey,
                     fontSize: 22,
                     fontFamily: StyleConst.customFont,
                     letterSpacing: 1.2,
@@ -83,10 +83,10 @@ class _SearchPageState extends State<SearchPage> {
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                   ),
-                  fillColor: ColorConst.sub_yellow,
+                  fillColor: ColorConst.subYellow,
                   filled: true,
                   prefixIcon: Icon(FontAwesomeIcons.key),
-                  prefixIconColor: ColorConst.dark_grey,
+                  prefixIconColor: ColorConst.darkGrey,
                 ),
               ),
             ),
@@ -139,11 +139,11 @@ class _SearchPageState extends State<SearchPage> {
           Container(
             decoration: const BoxDecoration(
               border: Border(
-                  bottom: BorderSide(color: ColorConst.dark_grey, width: 2)),
+                  bottom: BorderSide(color: ColorConst.darkGrey, width: 2)),
             ),
             child: ExpansionTile(
               trailing: const Icon(FontAwesomeIcons.sortDown),
-              iconColor: ColorConst.dark_grey,
+              iconColor: ColorConst.darkGrey,
               title: Row(
                 children: [
                   Icon(icon),
@@ -152,7 +152,7 @@ class _SearchPageState extends State<SearchPage> {
                       style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color: ColorConst.dark_grey)),
+                          color: ColorConst.darkGrey)),
                 ],
               ),
               children: contents,

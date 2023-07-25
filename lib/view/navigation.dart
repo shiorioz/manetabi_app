@@ -50,18 +50,18 @@ class _NavigationState extends State<Navigation> {
           color: ColorConst.white,
           icon: Icon(
             FontAwesomeIcons.plus,
-            color: ColorConst.jungle_mint,
+            color: ColorConst.jungleMint,
           ),
         ),
         bottomBarTheme: const BottomBarTheme(
           heightOpened: 280,
           mainButtonPosition: MainButtonPosition.middle,
           decoration: BoxDecoration(
-            color: ColorConst.jungle_mint,
+            color: ColorConst.jungleMint,
             borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
           ),
           itemIconColor: ColorConst.white,
-          selectedItemIconColor: ColorConst.dark_grey,
+          selectedItemIconColor: ColorConst.darkGrey,
           itemIconSize: 24.0,
           selectedItemIconSize: 26.0,
           // selectedItemIconSize: 30.0,
@@ -101,7 +101,7 @@ class _NavigationState extends State<Navigation> {
           Material(
             elevation: 8,
             borderRadius: BorderRadius.circular(20),
-            color: ColorConst.sub_yellow,
+            color: ColorConst.subYellow,
             child: InkWell(
               splashFactory: NoSplash.splashFactory,
               highlightColor: Colors.grey.withOpacity(0.1),
@@ -110,7 +110,7 @@ class _NavigationState extends State<Navigation> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => PlanAddPage(),
+                      builder: (context) => const PlanAddPage(),
                     ));
               },
               child: const SizedBox(
@@ -125,7 +125,7 @@ class _NavigationState extends State<Navigation> {
           Material(
             elevation: 8,
             borderRadius: BorderRadius.circular(20),
-            color: ColorConst.sub_yellow,
+            color: ColorConst.subYellow,
             child: InkWell(
               splashFactory: NoSplash.splashFactory,
               highlightColor: Colors.grey.withOpacity(0.1),

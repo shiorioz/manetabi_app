@@ -62,7 +62,7 @@ class CardComponent extends StatelessWidget {
                         ),
                         const Divider(
                             thickness: 3,
-                            color: ColorConst.dark_grey,
+                            color: ColorConst.darkGrey,
                             height: 6,
                             endIndent: 48),
                         // タグ

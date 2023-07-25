@@ -7,7 +7,7 @@ class BottomTwoBtnComp extends StatelessWidget implements PreferredSizeWidget {
   final String rightBtnText;
 
   const BottomTwoBtnComp(BuildContext context,
-      {required this.leftBtnText, required this.rightBtnText});
+      {super.key, required this.leftBtnText, required this.rightBtnText});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class BottomTwoBtnComp extends StatelessWidget implements PreferredSizeWidget {
                 backgroundColor: ColorConst.grey,
               ),
               onPressed: () {},
-              child: Text(leftBtnText, style: TextStyle(fontSize: 20)),
+              child: Text(leftBtnText, style: const TextStyle(fontSize: 20)),
             ),
             const SizedBox(width: 20),
             ElevatedButton(
@@ -45,7 +45,7 @@ class BottomTwoBtnComp extends StatelessWidget implements PreferredSizeWidget {
                 backgroundColor: ColorConst.grey,
               ),
               onPressed: () {},
-              child: Text(rightBtnText, style: TextStyle(fontSize: 20)),
+              child: Text(rightBtnText, style: const TextStyle(fontSize: 20)),
             ),
           ],
         ),

@@ -3,7 +3,6 @@ import 'package:manetabi_app/constant/strings.dart';
 import 'package:manetabi_app/controller/bookmark_controller.dart';
 import 'package:manetabi_app/view/component/menubar_component.dart';
 
-import '../../controller/home_controller.dart';
 import '../../model/post_model.dart';
 import '../component/card_component.dart';
 
@@ -45,18 +44,18 @@ class _PlanCopyPageState extends State<PlanCopyPage> {
     );
   }
 
-  Widget _bookmarkListWidget(List<PostModel> _posts) {
+  Widget _bookmarkListWidget(List<PostModel> posts) {
     return SizedBox(
       width: MediaQuery.of(context).size.width * 0.90,
       child: ListView.builder(
         shrinkWrap: true,
-        itemCount: _posts.length,
+        itemCount: posts.length,
         itemBuilder: (context, index) {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CardComponent(
-                post: _posts[index],
+                post: posts[index],
                 onTap: () {
                   // TODO: 複製したプランを編集するページ(plan_edit_page)に遷移
                 },

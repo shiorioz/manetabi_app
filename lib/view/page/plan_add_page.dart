@@ -3,7 +3,7 @@ import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/view/component/menubar_component.dart';
 
 class PlanAddPage extends StatefulWidget {
-  PlanAddPage({super.key});
+  const PlanAddPage({super.key});
 
   @override
   State<PlanAddPage> createState() => _PlanAddPageState();
@@ -13,11 +13,11 @@ class _PlanAddPageState extends State<PlanAddPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MenubarComp(),
+      appBar: const MenubarComp(),
       body: Stack(
         fit: StackFit.expand,
         children: [
-          _detailWidget(context),
+          _inputDetailWidget(context),
           _buttonWidget(context),
         ],
       ),
@@ -25,23 +25,28 @@ class _PlanAddPageState extends State<PlanAddPage> {
   }
 
   // 詳細部分ウィジェット
-  Widget _detailWidget(BuildContext context) {
+  Widget _inputDetailWidget(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(20),
-        child: Column(
+        child: const Column(
           children: [
+            // TODO: 下線の太さ
             TextField(
               decoration: InputDecoration(
-                hintText: 'Title',
-                border: OutlineInputBorder(),
-                contentPadding: const EdgeInsets.all(10),
+                hintText: 'title',
+                contentPadding: EdgeInsets.all(10),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConst.darkGrey,
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: ColorConst.darkGrey,
+                  ),
+                ),
               ),
-            ),
-            const Divider(
-              thickness: 3,
-              color: ColorConst.dark_grey,
-              height: 20,
             ),
           ],
         ),
