@@ -5,9 +5,12 @@ class ColorConst {
   static const Color white = Colors.white;
   static const Color grey = Color.fromRGBO(217, 217, 217, 60);
   static const Color dark_grey = Color.fromRGBO(103, 103, 103, 1);
+  static const Color shadow_grey = Colors.black26;
 
   static const Color yellow = Colors.yellow;
-  static const Color jungle_mint = Color.fromRGBO(185, 225, 225, 1);
+  static const Color sub_yellow = Color.fromRGBO(253, 254, 242, 1);
   static const Color schoolbus_yellow = Color.fromRGBO(255, 230, 90, 1);
+  static const Color jungle_mint = Color.fromRGBO(185, 225, 225, 1);
+
   static Color? pink = Color.fromRGBO(255, 167, 167, 1);
 }
