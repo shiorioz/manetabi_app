@@ -6,6 +6,7 @@ class StringConst {
   static const String searchBtnText = 'search';
   static const String recommendMonth = '今月のおすすめ';
   static const String cost = 'budget';
+  static const String choosePlanText = 'どのプランを複製しますか？';
 
   // 検索項目
   static const String placeTitle = '場所';
