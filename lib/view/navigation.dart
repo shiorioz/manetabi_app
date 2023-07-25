@@ -99,8 +99,9 @@ class _NavigationState extends State<Navigation> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Material(
-            elevation: 10,
+            elevation: 8,
             borderRadius: BorderRadius.circular(20),
+            color: ColorConst.sub_yellow,
             child: InkWell(
               splashFactory: NoSplash.splashFactory,
               highlightColor: Colors.grey.withOpacity(0.1),
@@ -122,8 +123,9 @@ class _NavigationState extends State<Navigation> {
             ),
           ),
           Material(
-            elevation: 10,
+            elevation: 8,
             borderRadius: BorderRadius.circular(20),
+            color: ColorConst.sub_yellow,
             child: InkWell(
               splashFactory: NoSplash.splashFactory,
               highlightColor: Colors.grey.withOpacity(0.1),

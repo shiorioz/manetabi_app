@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ColorConst {
   static const Color black = Colors.black;
-  static const Color white = Colors.white;
+  static const Color white = Color.fromRGBO(255, 255, 250, 1);
   static const Color grey = Color.fromRGBO(217, 217, 217, 60);
   static const Color dark_grey = Color.fromRGBO(103, 103, 103, 1);
   static const Color shadow_grey = Colors.black26;
