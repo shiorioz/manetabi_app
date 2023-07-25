@@ -117,7 +117,7 @@ class _NavigationState extends State<Navigation> {
                 width: 160,
                 height: 160,
                 child: Center(
-                    child: Text(StringConst.addPlan,
+                    child: Text(StringConst.addPlanText,
                         style: TextStyle(fontSize: 20))),
               ),
             ),
@@ -141,7 +141,7 @@ class _NavigationState extends State<Navigation> {
                 width: 160,
                 height: 160,
                 child: Center(
-                    child: Text(StringConst.copyPlan,
+                    child: Text(StringConst.copyPlanText,
                         style: TextStyle(fontSize: 20))),
               ),
             ),

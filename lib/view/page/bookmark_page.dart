@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:manetabi_app/controller/bookmark_controller.dart';
-import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 import 'package:manetabi_app/view/component/card_component.dart';
 import 'package:manetabi_app/view/page/post_detail_page.dart';

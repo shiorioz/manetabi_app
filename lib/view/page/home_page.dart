@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 20),
             const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Text(StringConst.recommendMonth,
+              child: Text(StringConst.recommendMonthText,
                   style: TextStyle(fontSize: 20)),
             ),
             _planListWidget(),

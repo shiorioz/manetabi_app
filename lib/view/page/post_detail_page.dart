@@ -34,7 +34,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             _postDetailFutureWidget(context),
             IconBtnComponent(
               context,
-              btnText: StringConst.keep,
+              btnText: StringConst.keepText,
               icon: FontAwesomeIcons.solidCircleDown,
               onPressed: () {},
             ),
