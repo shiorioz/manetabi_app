@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manetabi_app/controller/bookmark_controller.dart';
 import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 import 'package:manetabi_app/view/component/card_component.dart';
@@ -16,7 +17,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
   @override
   void initState() {
     super.initState();
-    _posts = HomeController().post;
+    _posts = BookmarkController().post;
   }
 
   @override
@@ -25,7 +26,25 @@ class _BookmarkPageState extends State<BookmarkPage> {
       body: Column(
         children: [
           const SizedBox(height: 40),
-          CardComponent(posts: _posts),
+          Center(
+            heightFactor: 1.0,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width * 0.90,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _posts.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CardComponent(post: _posts[index]),
+                      const SizedBox(height: 10),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );

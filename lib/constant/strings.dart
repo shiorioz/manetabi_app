@@ -13,5 +13,5 @@ class StringConst {
   static const String costTitle = '予算';
 
   // 画像パス
-  static const String noImagePath = 'assets/images/noimg.jpeg';
+  static const String noImagePath = 'assets/images/noimg.jpg';
 }

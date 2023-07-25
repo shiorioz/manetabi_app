@@ -12,12 +12,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<PostModel> _post = [];
+  List<PostModel> _posts = [];
 
   @override
   void initState() {
     super.initState();
-    _post = HomeController().post;
+    _posts = HomeController().post;
   }
 
   @override
@@ -45,7 +45,25 @@ class _HomePageState extends State<HomePage> {
           child:
               Text(StringConst.recommendMonth, style: TextStyle(fontSize: 20)),
         ),
-        CardComponent(posts: _post),
+        Center(
+          heightFactor: 1.0,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 0.90,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: _posts.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CardComponent(post: _posts[index]),
+                    const SizedBox(height: 10),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
       ],
     );
   }

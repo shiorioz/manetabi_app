@@ -34,10 +34,10 @@ class _PostDetailPageState extends State<PostDetailPage> {
         fit: StackFit.expand,
         children: [
           _postDetailFutureWidget(context),
-          ButtomOneBtnComp(
-            context,
-            btnText: 'プラン複製',
-          ),
+          // ButtomOneBtnComp(
+          //   context,
+          //   btnText: 'プラン複製',
+          // ),
         ],
       ),
     );

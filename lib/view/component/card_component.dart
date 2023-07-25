@@ -4,36 +4,15 @@ import 'package:intl/intl.dart';
 import '../../constant/colors.dart';
 import '../../constant/strings.dart';
 import '../../model/post_model.dart';
-import '../page/post_detail_page.dart';
 
 class CardComponent extends StatelessWidget {
-  final List<PostModel> _posts;
+  final PostModel _post;
 
-  const CardComponent({super.key, required List<PostModel> posts})
-      : _posts = posts;
+  const CardComponent({super.key, required PostModel post}) : _post = post;
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      heightFactor: 1.0,
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.90,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: _posts.length,
-          itemBuilder: (context, index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                _oneCard(_posts[index], context),
-                const SizedBox(height: 10),
-              ],
-            );
-          },
-        ),
-      ),
-    );
-    ;
+    return _oneCard(_post, context);
   }
 
   // カード（1枚）ウィジェット
@@ -42,12 +21,13 @@ class CardComponent extends StatelessWidget {
 
     return InkWell(
       onTap: () {
-        // detailページに遷移
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PostDetailPage(planId: post.planId),
-            ));
+        // TODO:
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => _nextPage(post: post),
+        //   ),
+        // );
       },
       // エフェクトの削除
       splashFactory: NoSplash.splashFactory,
