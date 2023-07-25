@@ -6,9 +6,13 @@ import '../../constant/style.dart';
 class IconBtnComponent extends StatelessWidget implements PreferredSizeWidget {
   final String btnText;
   final IconData icon;
+  final Function() onPressed;
 
   const IconBtnComponent(BuildContext context,
-      {super.key, required this.btnText, required this.icon});
+      {super.key,
+      required this.btnText,
+      required this.icon,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,26 +23,8 @@ class IconBtnComponent extends StatelessWidget implements PreferredSizeWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // ElevatedButton(
-            //   style: ElevatedButton.styleFrom(
-            //     padding:
-            //         const EdgeInsets.symmetric(vertical: 10, horizontal: 36),
-            //     elevation: 0,
-            //     shape: RoundedRectangleBorder(
-            //       borderRadius: BorderRadius.circular(24),
-            //     ),
-            //     foregroundColor: ColorConst.dark_grey,
-            //     backgroundColor: ColorConst.schoolbus_yellow,
-            //   ),
-            //   onPressed: () {},
-            //   child: Text(btnText, style: TextStyle(fontSize: 20)),
-            // ),
             ElevatedButton.icon(
-              onPressed: () {
-                // TODO: 検索処理
-                // Navigator.push(context, MaterialPageRoute(builder: (context)=>));
-              },
-              // iconがnullじゃなかったらiconを表示
+              onPressed: onPressed,
               icon: Icon(icon, color: ColorConst.dark_grey, size: 24),
               label: Text(
                 btnText,

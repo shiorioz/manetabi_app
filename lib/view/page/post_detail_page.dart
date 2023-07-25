@@ -38,6 +38,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               context,
               btnText: StringConst.keep,
               icon: FontAwesomeIcons.solidCircleDown,
+              onPressed: () {},
             ),
             const SizedBox(height: 40),
           ],
