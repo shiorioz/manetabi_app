@@ -2,6 +2,8 @@ class StringConst {
   static const String appName = 'mane  tabi';
   static const String addPlan = '新規作成';
   static const String copyPlan = 'コピーして作成';
+  static const String keep = 'keep';
+  static const String searchBtnText = 'search';
   static const String recommendMonth = '今月のおすすめ';
   static const String cost = 'budget';
 
