@@ -21,8 +21,8 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-  Future<PostModel> _getPlan() async {
-    return DetailController().post;
+  Future<PostModel> _getPost() async {
+    return DetailController().getPost(widget.planId);
   }
 
   Future<void> _showKeepDialog() async {
@@ -104,7 +104,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: FutureBuilder(
-        future: _getPlan(),
+        future: _getPost(),
         builder: (context, AsyncSnapshot<dynamic> snapshot) {
           // ロード中
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -150,7 +150,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             _costWidget(post.cost),
             const SizedBox(height: 20),
             // ブロック
-            _blockWidget(post.block!),
+            if (post.block != null) _blockWidget(post.block),
           ],
         ),
       ),
@@ -248,17 +248,18 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   color: ColorConst.darkGrey,
                 ),
                 const SizedBox(width: 4),
-                SizedBox(
-                  height: 38,
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: post.location!.length,
-                    itemBuilder: (context, index) {
-                      return _locationWidget(post.location![index]);
-                    },
+                if (post.location != null)
+                  SizedBox(
+                    height: 38,
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: post.location!.length,
+                      itemBuilder: (context, index) {
+                        return _locationWidget(post.location![index]);
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
             Container(

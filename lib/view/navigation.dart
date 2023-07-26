@@ -122,7 +122,10 @@ class _NavigationState extends State<Navigation> {
                 height: 160,
                 child: Center(
                     child: Text(StringConst.addPlanText,
-                        style: TextStyle(fontSize: 20))),
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: ColorConst.darkGrey,
+                        ))),
               ),
             ),
           ),
@@ -146,7 +149,8 @@ class _NavigationState extends State<Navigation> {
                 height: 160,
                 child: Center(
                     child: Text(StringConst.copyPlanText,
-                        style: TextStyle(fontSize: 20))),
+                        style: TextStyle(
+                            fontSize: 20, color: ColorConst.darkGrey))),
               ),
             ),
           ),

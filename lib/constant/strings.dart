@@ -1,7 +1,7 @@
 class StringConst {
   static const String appName = 'mane  tabi';
   static const String addPlanText = '新規作成';
-  static const String copyPlanText = 'コピーして作成';
+  static const String copyPlanText = '複製して作成';
   static const String keepText = 'keep';
   static const String keepConfirmText = '保存しました';
   static const String deleteText = 'delete';
