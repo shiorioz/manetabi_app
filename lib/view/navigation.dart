@@ -1,6 +1,7 @@
 import 'package:bottom_bar_with_sheet/bottom_bar_with_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:icon_decoration/icon_decoration.dart';
 import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/view/component/appbar_component.dart';
 import 'package:manetabi_app/view/page/bookmark_page.dart';
@@ -47,10 +48,20 @@ class _NavigationState extends State<Navigation> {
       bottomNavigationBar: BottomBarWithSheet(
         controller: _bottomBarController,
         mainActionButtonTheme: const MainActionButtonTheme(
-          color: ColorConst.white,
-          icon: Icon(
-            FontAwesomeIcons.plus,
-            color: ColorConst.jungleMint,
+          color: Colors.transparent,
+          icon: DecoratedIcon(
+            icon: Icon(
+              FontAwesomeIcons.circlePlus,
+              color: ColorConst.white,
+              size: 46,
+              shadows: [
+                Shadow(
+                  color: ColorConst.shadowGrey,
+                  blurRadius: 2,
+                  offset: Offset(0, 2),
+                ),
+              ],
+            ),
           ),
         ),
         bottomBarTheme: const BottomBarTheme(
@@ -62,18 +73,9 @@ class _NavigationState extends State<Navigation> {
           ),
           itemIconColor: ColorConst.white,
           selectedItemIconColor: ColorConst.darkGrey,
-          itemIconSize: 24.0,
-          selectedItemIconSize: 26.0,
+          itemIconSize: 20.0,
+          selectedItemIconSize: 20.0,
           // selectedItemIconSize: 30.0,
-          // なぜか効かない
-          // itemTextStyle: TextStyle(
-          //   color: Colors.grey,
-          //   fontSize: 14.0,
-          // ),
-          // selectedItemTextStyle: TextStyle(
-          //   color: Colors.red,
-          //   fontSize: 14.0,
-          // ),
         ),
         onSelectItem: (index) => setState(() => _selectedIndex = index),
         sheetChild: Center(
@@ -82,11 +84,13 @@ class _NavigationState extends State<Navigation> {
         items: const [
           // TODO: 影をつける
           BottomBarWithSheetItem(
-            icon: Icons.home,
+            icon: FontAwesomeIcons.house,
           ),
-          BottomBarWithSheetItem(icon: Icons.search),
-          BottomBarWithSheetItem(icon: Icons.bookmark),
-          BottomBarWithSheetItem(icon: Icons.person),
+          BottomBarWithSheetItem(
+            icon: FontAwesomeIcons.magnifyingGlass,
+          ),
+          BottomBarWithSheetItem(icon: FontAwesomeIcons.solidBookmark),
+          BottomBarWithSheetItem(icon: FontAwesomeIcons.solidUser),
         ],
       ),
     );
