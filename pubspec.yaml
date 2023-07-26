@@ -29,6 +29,9 @@ flutter:
 
   # フォント
   fonts:
+    - family: HiraginoMaruGothicPro
+      fonts:
+        - asset: assets/fonts/hiragino_maru_gothic_pro/hiragino-maru-gothic-pro-w4.otf
     - family: JockeyOne
       fonts:
-        - asset: assets/fonts/Jockey_One/JockeyOne-Regular.ttf
+        - asset: assets/fonts/jockey_one/JockeyOne-Regular.ttf

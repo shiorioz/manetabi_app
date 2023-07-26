@@ -29,6 +29,7 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'HiraginoMaruGothicPro',
         iconTheme: const IconThemeData(
           color: ColorConst.grey,
         ),
