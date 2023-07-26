@@ -6,8 +6,6 @@ import 'package:manetabi_app/constant/strings.dart';
 import 'package:manetabi_app/view/component/bottom_two_btn_component.dart';
 import 'package:manetabi_app/view/component/menubar_component.dart';
 
-import '../../constant/style.dart';
-
 class PlanAddPage extends StatefulWidget {
   const PlanAddPage({super.key});
 
@@ -18,6 +16,8 @@ class PlanAddPage extends StatefulWidget {
 class _PlanAddPageState extends State<PlanAddPage> {
   var _startLabelText = 'YYYY/MM/DD';
   var _endLabelText = 'YYYY/MM/DD';
+  var selectedTime = TimeOfDay.now();
+  String _timeLabelText = '00:00';
   String costText = '0';
 
   DateTime _date = DateTime.now();
@@ -46,6 +46,33 @@ class _PlanAddPageState extends State<PlanAddPage> {
         } else {
           _endLabelText = DateFormat('yyyy/MM/dd').format(_date);
         }
+      });
+    }
+  }
+
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+          child: child!,
+        );
+        // return Theme(
+        //     data: ThemeData.light().copyWith(
+        //       colorScheme: const ColorScheme.light()
+        //           .copyWith(primary: ColorConst.darkGrey),
+        //     ),
+        //     child: child!);
+      },
+    );
+
+    if (picked != null) {
+      setState(() {
+        // 選択された時刻を変数に格納
+        selectedTime = picked;
+        _timeLabelText = selectedTime.format(context);
       });
     }
   }
@@ -88,6 +115,10 @@ class _PlanAddPageState extends State<PlanAddPage> {
             const TextField(
               decoration: InputDecoration(
                 hintText: StringConst.titleText,
+                hintStyle: TextStyle(
+                  color: ColorConst.darkGrey,
+                  fontSize: 18,
+                ),
                 contentPadding:
                     EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                 enabledBorder: UnderlineInputBorder(
@@ -106,6 +137,10 @@ class _PlanAddPageState extends State<PlanAddPage> {
             const TextField(
               decoration: InputDecoration(
                 hintText: StringConst.placeText,
+                hintStyle: TextStyle(
+                  color: ColorConst.darkGrey,
+                  fontSize: 18,
+                ),
                 icon: Icon(FontAwesomeIcons.locationDot,
                     color: ColorConst.darkGrey),
                 contentPadding:
@@ -230,6 +265,11 @@ class _PlanAddPageState extends State<PlanAddPage> {
               padding: const EdgeInsets.only(left: 30.0),
               child: TextField(
                 decoration: InputDecoration(
+                  // hintText: '$costText￥',
+                  // hintStyle: const TextStyle(
+                  //   color: ColorConst.darkGrey,
+                  //   fontSize: 20,
+                  // ),
                   label: Center(child: Text('$costText￥')),
                   labelStyle: const TextStyle(
                     color: ColorConst.darkGrey,
@@ -252,7 +292,86 @@ class _PlanAddPageState extends State<PlanAddPage> {
   // ブロック入力ウィジェット
   Widget _inputBlockWidget(BuildContext context) {
     return Container(
-      child: Text('block'),
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // 日付表示
+          Text(
+            'day' + '1',
+            style: TextStyle(
+              fontSize: 20,
+              color: ColorConst.darkGrey,
+            ),
+          ),
+          const SizedBox(height: 10),
+          // ブロック入力
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: ColorConst.darkGrey),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _selectTime(context),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.transparent,
+                    shadowColor: Colors.transparent,
+                    elevation: 0,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  ),
+                  child: Text(_timeLabelText,
+                      style: const TextStyle(
+                          fontSize: 18, color: ColorConst.darkGrey)),
+                ),
+                const Expanded(
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(
+                            hintText: StringConst.placeText,
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 32),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                      TextField(
+                        decoration: InputDecoration(
+                            // hintText: StringConst.descriptionText,
+                            label: Row(
+                              children: [
+                                Icon(FontAwesomeIcons.solidCircle,
+                                    size: 4, color: ColorConst.darkGrey),
+                                SizedBox(width: 10),
+                                Text(StringConst.descriptionText,
+                                    style: TextStyle(fontSize: 18)),
+                              ],
+                            ),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 8, horizontal: 32),
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          // ブロック追加ボタン
+          Center(
+            child: IconButton(
+                onPressed: () {},
+                icon: const Icon(FontAwesomeIcons.circlePlus,
+                    color: ColorConst.darkGrey)),
+          ),
+        ],
+      ),
     );
   }
 }
