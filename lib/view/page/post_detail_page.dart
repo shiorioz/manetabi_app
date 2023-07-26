@@ -341,25 +341,22 @@ class _PostDetailPageState extends State<PostDetailPage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: ExpansionTile(
-                                textColor: ColorConst.black,
-                                iconColor: ColorConst.black,
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                leading: const Icon(FontAwesomeIcons.sortDown,
-                                    size: 18, color: ColorConst.darkGrey),
-                                // 開閉でアイコン変更（うまくできない）
-                                // leading: Icon(_isTileExpanded
-                                //     ? Icons.arrow_drop_down
-                                //     : Icons.arrow_right),
-                                // onExpansionChanged: (bool expanded) {
-                                //   setState(() => _isTileExpanded = expanded);
-                                // },
-                                title: Text(block[index].blockName,
-                                    style: const TextStyle(fontSize: 20)),
-                                children: <Widget>[
-                                  _detailTextWidget(block[index]),
-                                ],
-                              ),
+                                  textColor: ColorConst.black,
+                                  iconColor: ColorConst.black,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  leading: const Icon(FontAwesomeIcons.sortDown,
+                                      size: 18, color: ColorConst.darkGrey),
+                                  // 開閉でアイコン変更（うまくできない）
+                                  // leading: Icon(_isTileExpanded
+                                  //     ? Icons.arrow_drop_down
+                                  //     : Icons.arrow_right),
+                                  // onExpansionChanged: (bool expanded) {
+                                  //   setState(() => _isTileExpanded = expanded);
+                                  // },
+                                  title: Text(block[index].blockName,
+                                      style: const TextStyle(fontSize: 20)),
+                                  children: _detailTextWidget(block[index])),
                             ),
                           ],
                         ),
@@ -376,10 +373,34 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 
   // detailTextウィジェット
-  Widget _detailTextWidget(BlockModel block) {
+  List<Widget> _detailTextWidget(BlockModel block) {
+    List<Widget> _detailTextList = [];
+
+    // 詳細
     if (block.details != null) {
-      return Text(block.details!);
+      _detailTextList.add(
+        Container(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            block.details!,
+            style: const TextStyle(fontSize: 16),
+          ),
+        ),
+      );
     }
-    return const SizedBox(height: 20);
+
+    // 住所
+    if (block.address != null) {
+      // TODO: 住所のスタイル
+      _detailTextList.add(
+        Container(
+          child: Text(
+            block.address!,
+            style: const TextStyle(fontSize: 14),
+          ),
+        ),
+      );
+    }
+    return _detailTextList;
   }
 }
