@@ -22,7 +22,7 @@ class DetailController {
         // '食べ歩き',
       ],
       cost: 100000,
-      thumbnailPath: 'assets/images/1.jpg',
+      thumbnailPath: 'assets/images/3.jpg',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
       block: [
@@ -31,6 +31,7 @@ class DetailController {
           planId: 1,
           blockName: '大阪駅',
           details: '関西最大級の駅です。',
+          address: '大阪府大阪市北区梅田３丁目１−１',
           startDate: DateTime.parse('2023-07-23 10:30:00.000000'),
           endDate: DateTime.parse('2023-07-23 12:00:00.000000'),
           createdAt: DateTime.now(),

@@ -62,7 +62,7 @@ class CardComponent extends StatelessWidget {
                         ),
                         const Divider(
                             thickness: 3,
-                            color: ColorConst.dark_grey,
+                            color: ColorConst.darkGrey,
                             height: 6,
                             endIndent: 48),
                         // タグ
@@ -107,15 +107,17 @@ class CardComponent extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 2.0),
                   child: Container(
                     decoration: BoxDecoration(
-                        color: ColorConst.grey,
+                        color: ColorConst.jungleMint,
                         borderRadius: BorderRadius.circular(10)),
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 6.0, vertical: 1.0),
-                        child: Text(post.tags![tagIndex],
-                            style: const TextStyle(fontSize: 12)),
+                        child: Text(
+                          post.tags![tagIndex],
+                          style: const TextStyle(fontSize: 12),
+                        ),
                       ),
                     ),
                   ),

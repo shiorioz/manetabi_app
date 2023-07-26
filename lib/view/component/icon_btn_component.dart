@@ -25,18 +25,18 @@ class IconBtnComponent extends StatelessWidget implements PreferredSizeWidget {
           children: [
             ElevatedButton.icon(
               onPressed: onPressed,
-              icon: Icon(icon, color: ColorConst.dark_grey, size: 24),
+              icon: Icon(icon, color: ColorConst.darkGrey, size: 24),
               label: Text(
                 btnText,
                 style: const TextStyle(
                   fontSize: 24,
-                  color: ColorConst.dark_grey,
+                  color: ColorConst.darkGrey,
                   fontFamily: StyleConst.customFont,
                   letterSpacing: 1.6,
                 ),
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: ColorConst.schoolbus_yellow,
+                backgroundColor: ColorConst.schoolbusYellow,
                 elevation: 2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),

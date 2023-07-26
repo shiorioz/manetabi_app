@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:manetabi_app/constant/style.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/model/block_model.dart';
 import 'package:manetabi_app/view/component/icon_btn_component.dart';
@@ -26,6 +25,58 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return DetailController().post;
   }
 
+  Future<void> _showKeepDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+
+          title: const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Center(child: Text(StringConst.keepConfirmText)),
+          ),
+          contentPadding: const EdgeInsets.only(top: 200),
+          // actionsPadding: EdgeInsets.only(top: 200),
+          // pad
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorConst.jungleMint,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                    child: Text('OK',
+                        style: TextStyle(
+                            color: ColorConst.darkGrey,
+                            fontFamily: StyleConst.customFont,
+                            fontSize: 20,
+                            letterSpacing: 1.5)),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const Navigator()));
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,9 +87,11 @@ class _PostDetailPageState extends State<PostDetailPage> {
             _postDetailFutureWidget(context),
             IconBtnComponent(
               context,
-              btnText: StringConst.keep,
+              btnText: StringConst.keepText,
               icon: FontAwesomeIcons.solidCircleDown,
-              onPressed: () {},
+              onPressed: () {
+                _showKeepDialog();
+              },
             ),
             const SizedBox(height: 40),
           ],
@@ -179,7 +232,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
         ),
         const Divider(
           thickness: 3,
-          color: ColorConst.dark_grey,
+          color: ColorConst.darkGrey,
           height: 20,
         ),
         // 場所・日付ウィジェット
@@ -192,7 +245,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                 const Icon(
                   FontAwesomeIcons.locationDot,
                   size: 20,
-                  color: ColorConst.dark_grey,
+                  color: ColorConst.darkGrey,
                 ),
                 const SizedBox(width: 4),
                 SizedBox(
@@ -234,7 +287,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             children: [
               // TODO: お金のアイコン変更
               Icon(FontAwesomeIcons.sackDollar,
-                  size: 22, color: ColorConst.dark_grey),
+                  size: 22, color: ColorConst.darkGrey),
               SizedBox(width: 4),
               Text(
                 'budget ',
@@ -269,7 +322,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
               padding: const EdgeInsets.only(right: 6.0),
               child: Container(
                 decoration: BoxDecoration(
-                    color: ColorConst.jungle_mint,
+                    color: ColorConst.jungleMint,
                     borderRadius: BorderRadius.circular(16)),
                 alignment: Alignment.center,
                 child: Padding(
@@ -278,7 +331,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   child: Row(
                     children: [
                       const Icon(FontAwesomeIcons.tag,
-                          size: 16, color: ColorConst.dark_grey),
+                          size: 16, color: ColorConst.darkGrey),
                       const SizedBox(width: 4),
                       Text(tags[tagIndex],
                           style: const TextStyle(
@@ -343,25 +396,22 @@ class _PostDetailPageState extends State<PostDetailPage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.6,
                               child: ExpansionTile(
-                                textColor: ColorConst.black,
-                                iconColor: ColorConst.black,
-                                controlAffinity:
-                                    ListTileControlAffinity.leading,
-                                leading: const Icon(FontAwesomeIcons.sortDown,
-                                    size: 18, color: ColorConst.dark_grey),
-                                // 開閉でアイコン変更（うまくできない）
-                                // leading: Icon(_isTileExpanded
-                                //     ? Icons.arrow_drop_down
-                                //     : Icons.arrow_right),
-                                // onExpansionChanged: (bool expanded) {
-                                //   setState(() => _isTileExpanded = expanded);
-                                // },
-                                title: Text(block[index].blockName,
-                                    style: TextStyle(fontSize: 20)),
-                                children: <Widget>[
-                                  _detailTextWidget(block[index]),
-                                ],
-                              ),
+                                  textColor: ColorConst.black,
+                                  iconColor: ColorConst.black,
+                                  controlAffinity:
+                                      ListTileControlAffinity.leading,
+                                  leading: const Icon(FontAwesomeIcons.sortDown,
+                                      size: 18, color: ColorConst.darkGrey),
+                                  // 開閉でアイコン変更（うまくできない）
+                                  // leading: Icon(_isTileExpanded
+                                  //     ? Icons.arrow_drop_down
+                                  //     : Icons.arrow_right),
+                                  // onExpansionChanged: (bool expanded) {
+                                  //   setState(() => _isTileExpanded = expanded);
+                                  // },
+                                  title: Text(block[index].blockName,
+                                      style: const TextStyle(fontSize: 20)),
+                                  children: _detailTextWidget(block[index])),
                             ),
                           ],
                         ),
@@ -378,12 +428,34 @@ class _PostDetailPageState extends State<PostDetailPage> {
   }
 
   // detailTextウィジェット
-  Widget _detailTextWidget(BlockModel block) {
+  List<Widget> _detailTextWidget(BlockModel block) {
+    List<Widget> _detailTextList = [];
+
+    // 詳細
     if (block.details != null) {
-      return Container(
-        child: Text(block.details!),
+      _detailTextList.add(
+        Container(
+          padding: const EdgeInsets.only(left: 10),
+          child: Text(
+            block.details!,
+            style: const TextStyle(fontSize: 16),
+          ),
+        ),
       );
     }
-    return SizedBox(height: 20);
+
+    // 住所
+    if (block.address != null) {
+      // TODO: 住所のスタイル
+      _detailTextList.add(
+        Container(
+          child: Text(
+            block.address!,
+            style: const TextStyle(fontSize: 14),
+          ),
+        ),
+      );
+    }
+    return _detailTextList;
   }
 }

@@ -25,13 +25,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              const SizedBox(height: 20),
-              _planListWidget(),
-            ],
-          ),
+        child: Column(
+          children: [
+            const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(StringConst.recommendMonthText,
+                  style: TextStyle(fontSize: 20)),
+            ),
+            _planListWidget(),
+          ],
         ),
       ),
     );
@@ -41,13 +44,7 @@ class _HomePageState extends State<HomePage> {
   Widget _planListWidget() {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child:
-              Text(StringConst.recommendMonth, style: TextStyle(fontSize: 20)),
-        ),
         Center(
-          heightFactor: 1.0,
           child: SizedBox(
             width: MediaQuery.of(context).size.width * 0.90,
             child: ListView.builder(

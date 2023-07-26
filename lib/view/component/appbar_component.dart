@@ -12,13 +12,13 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: false,
-      backgroundColor: ColorConst.jungle_mint,
+      backgroundColor: ColorConst.jungleMint,
       title: const Padding(
         padding: EdgeInsets.only(left: 24.0),
         child: Text(
           StringConst.appName,
           style: TextStyle(
-            color: ColorConst.dark_grey,
+            color: ColorConst.darkGrey,
             fontSize: 32,
             fontFamily: StyleConst.customFont,
             letterSpacing: 1.4,
@@ -41,7 +41,7 @@ class AppbarComp extends StatelessWidget implements PreferredSizeWidget {
                 color: ColorConst.white,
                 shadows: [
                   Shadow(
-                    color: ColorConst.shadow_grey,
+                    color: ColorConst.shadowGrey,
                     blurRadius: 3,
                     offset: Offset(0, 2),
                   ),
