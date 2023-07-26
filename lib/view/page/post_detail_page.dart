@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:manetabi_app/constant/style.dart';
 import 'package:manetabi_app/controller/detail_controller.dart';
 import 'package:manetabi_app/model/block_model.dart';
 import 'package:manetabi_app/view/component/icon_btn_component.dart';
@@ -24,6 +25,58 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return DetailController().post;
   }
 
+  Future<void> _showKeepDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+
+          title: const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Center(child: Text(StringConst.keepConfirmText)),
+          ),
+          contentPadding: const EdgeInsets.only(top: 200),
+          // actionsPadding: EdgeInsets.only(top: 200),
+          // pad
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorConst.jungleMint,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                    child: Text('OK',
+                        style: TextStyle(
+                            color: ColorConst.darkGrey,
+                            fontFamily: StyleConst.customFont,
+                            fontSize: 20,
+                            letterSpacing: 1.5)),
+                  ),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const Navigator()));
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +89,9 @@ class _PostDetailPageState extends State<PostDetailPage> {
               context,
               btnText: StringConst.keepText,
               icon: FontAwesomeIcons.solidCircleDown,
-              onPressed: () {},
+              onPressed: () {
+                _showKeepDialog();
+              },
             ),
             const SizedBox(height: 40),
           ],
