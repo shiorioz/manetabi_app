@@ -3,6 +3,7 @@ import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/controller/home_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 import 'package:manetabi_app/view/component/card_component.dart';
+import 'package:manetabi_app/view/page/post_detail_page.dart';
 
 // class TabBarApp extends StatelessWidget {
 //   const TabBarApp({super.key});
@@ -105,10 +106,30 @@ class _ProfilePageState extends State<ProfilePage>
             child: Scaffold(
               body: TabBarView(
                 controller: _tabController,
-                children: const <Widget>[
-                  Center(),
+                children: [
                   Center(
-                    child: Text("bbbbbb"),
+                    heightFactor: 1.0,
+                    child: SizedBox(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _post.length,
+                        itemBuilder: (context, index) {
+                          return _card(context, index);
+                        },
+                      ),
+                    ),
+                  ),
+                  Center(
+                    heightFactor: 1.0,
+                    child: SizedBox(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: _post.length,
+                        itemBuilder: (context, index) {
+                          return _card(context, index);
+                        },
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -119,11 +140,23 @@ class _ProfilePageState extends State<ProfilePage>
     );
   }
 
-//Tab[my plan]
-  void _myplan() {
-    @override
-    Widget build(BuildContext context) {
-      return Scaffold();
-    }
+  //card
+  Widget _card(context, index) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        CardComponent(
+          post: _post[index],
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        PostDetailPage(planId: _post[index].planId)));
+          },
+        ),
+        const SizedBox(height: 10),
+      ],
+    );
   }
 }
