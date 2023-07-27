@@ -35,7 +35,10 @@ class _MainAppState extends State<MainApp> {
         ),
       ),
       // home: _isLoggedIn == true ? Navigation() : LoginPage(),
-      home: const Navigation(),
+      routes: {
+        '/': (context) => const Navigation(),
+      },
+      // home: const Navigation(),
     );
   }
 }

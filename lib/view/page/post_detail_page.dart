@@ -21,6 +21,8 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
+  bool _isLiked = false;
+
   Future<PostModel> _getPost() async {
     return DetailController().getPost(widget.planId);
   }
@@ -62,11 +64,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                             letterSpacing: 1.5)),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Navigator()));
+                    Navigator.pushNamed(context, '/');
                   },
                 ),
               ),
@@ -82,20 +80,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return Scaffold(
       appBar: const MenubarComp(),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _postDetailFutureWidget(context),
-            IconBtnComponent(
-              context,
-              btnText: StringConst.keepText,
-              icon: FontAwesomeIcons.solidCircleDown,
-              onPressed: () {
-                _showKeepDialog();
-              },
-            ),
-            const SizedBox(height: 40),
-          ],
-        ),
+        child: _postDetailFutureWidget(context),
       ),
     );
   }
@@ -127,7 +112,20 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
           final data = snapshot.data;
 
-          return _displayPostWidget(data);
+          return Column(
+            children: [
+              _displayPostWidget(data),
+              IconBtnComponent(
+                context,
+                btnText: StringConst.keepText,
+                icon: FontAwesomeIcons.solidCircleDown,
+                onPressed: () {
+                  _showKeepDialog();
+                },
+              ),
+              const SizedBox(height: 40),
+            ],
+          );
         },
       ),
     );
@@ -217,13 +215,21 @@ class _PostDetailPageState extends State<PostDetailPage> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onPressed: () {
-                      // TODO: いいねボタンを押した時の処理
+                      setState(() {
+                        _isLiked = !_isLiked;
+                      });
                     },
-                    icon: const Icon(
-                      FontAwesomeIcons.solidHeart,
-                      color: ColorConst.white,
-                      size: 20,
-                    ),
+                    icon: _isLiked
+                        ? const Icon(
+                            FontAwesomeIcons.solidHeart,
+                            color: ColorConst.white,
+                            size: 20,
+                          )
+                        : const Icon(
+                            FontAwesomeIcons.heart,
+                            color: ColorConst.white,
+                            size: 20,
+                          ),
                   ),
                 ),
               ),

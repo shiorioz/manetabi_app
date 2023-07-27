@@ -7,7 +7,7 @@ class ProfileController {
       userId: 3,
       title: '沖縄旅行',
       isPublic: false,
-      tags: ['ビーチ巡り'],
+      // tags: ['ビーチ巡り'],
       thumbnailPath: 'assets/images/noimg.jpg',
       // TODO: サムネイル画像
       createdAt: DateTime.parse('2023-07-25 10:30:00.000000'),
