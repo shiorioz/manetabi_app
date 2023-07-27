@@ -6,6 +6,8 @@ import 'package:manetabi_app/constant/strings.dart';
 import 'package:manetabi_app/view/component/bottom_two_btn_component.dart';
 import 'package:manetabi_app/view/component/menubar_component.dart';
 
+import '../../constant/style.dart';
+
 class PlanAddPage extends StatefulWidget {
   const PlanAddPage({super.key});
 
@@ -59,12 +61,6 @@ class _PlanAddPageState extends State<PlanAddPage> {
           data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
           child: child!,
         );
-        // return Theme(
-        //     data: ThemeData.light().copyWith(
-        //       colorScheme: const ColorScheme.light()
-        //           .copyWith(primary: ColorConst.darkGrey),
-        //     ),
-        //     child: child!);
       },
     );
 
@@ -75,6 +71,54 @@ class _PlanAddPageState extends State<PlanAddPage> {
         _timeLabelText = selectedTime.format(context);
       });
     }
+  }
+
+  Future<void> _showKeepDialog() async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+
+          title: const Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Center(child: Text(StringConst.keepConfirmText)),
+          ),
+          contentPadding: const EdgeInsets.only(top: 200),
+          // actionsPadding: EdgeInsets.only(top: 200),
+          // pad
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(bottom: 12.0),
+              child: Center(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: ColorConst.jungleMint,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 32),
+                    child: Text('OK',
+                        style: TextStyle(
+                            color: ColorConst.darkGrey,
+                            fontFamily: StyleConst.customFont,
+                            fontSize: 20,
+                            letterSpacing: 1.5)),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -94,7 +138,9 @@ class _PlanAddPageState extends State<PlanAddPage> {
               rightBtnText: StringConst.deleteText,
               leftIcon: FontAwesomeIcons.solidCircleDown,
               rightIcon: FontAwesomeIcons.trash,
-              leftOnPressed: () {},
+              leftOnPressed: () {
+                _showKeepDialog();
+              },
               rightOnPressed: () {},
             ),
           ],
@@ -263,14 +309,18 @@ class _PlanAddPageState extends State<PlanAddPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 30.0),
-              child: TextField(
+              child: TextFormField(
+                style: const TextStyle(
+                  color: ColorConst.darkGrey,
+                  fontSize: 20,
+                ),
                 decoration: InputDecoration(
                   // hintText: '$costText￥',
                   // hintStyle: const TextStyle(
                   //   color: ColorConst.darkGrey,
                   //   fontSize: 20,
                   // ),
-                  label: Center(child: Text('$costText￥')),
+                  label: Center(child: Text('￥')),
                   labelStyle: const TextStyle(
                     color: ColorConst.darkGrey,
                     fontSize: 20,

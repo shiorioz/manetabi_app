@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:manetabi_app/constant/colors.dart';
 import 'package:manetabi_app/controller/home_controller.dart';
+import 'package:manetabi_app/controller/profile_controller.dart';
 import 'package:manetabi_app/model/post_model.dart';
 import 'package:manetabi_app/view/component/card_component.dart';
 import 'package:manetabi_app/view/page/post_detail_page.dart';
@@ -33,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
-    _post = HomeController().post;
+    _post = ProfileController().post;
   }
 
   @override
@@ -73,14 +74,17 @@ class _ProfilePageState extends State<ProfilePage>
       decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage("assets/images/Icon.jpg"))),
+            fit: BoxFit.fill,
+            image: AssetImage("assets/images/Icon.jpg"),
+          )),
     );
   }
 
 //タブ
   Widget _Tabbar() {
-    return Scaffold(
-      body: Column(
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.90,
+      child: Column(
         children: [
           TabBar(
             controller: _tabController,
@@ -107,28 +111,22 @@ class _ProfilePageState extends State<ProfilePage>
               body: TabBarView(
                 controller: _tabController,
                 children: [
-                  Center(
-                    heightFactor: 1.0,
-                    child: SizedBox(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _post.length,
-                        itemBuilder: (context, index) {
-                          return _card(context, index);
-                        },
-                      ),
+                  SizedBox(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _post.length,
+                      itemBuilder: (context, index) {
+                        return _card(context, index);
+                      },
                     ),
                   ),
-                  Center(
-                    heightFactor: 1.0,
-                    child: SizedBox(
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _post.length,
-                        itemBuilder: (context, index) {
-                          return _card(context, index);
-                        },
-                      ),
+                  SizedBox(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _post.length,
+                      itemBuilder: (context, index) {
+                        return _card(context, index);
+                      },
                     ),
                   ),
                 ],

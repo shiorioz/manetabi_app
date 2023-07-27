@@ -29,12 +29,16 @@ class _MainAppState extends State<MainApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'HiraginoMaruGothicPro',
         iconTheme: const IconThemeData(
           color: ColorConst.grey,
         ),
       ),
       // home: _isLoggedIn == true ? Navigation() : LoginPage(),
-      home: const Navigation(),
+      routes: {
+        '/': (context) => const Navigation(),
+      },
+      // home: const Navigation(),
     );
   }
 }

@@ -23,7 +23,7 @@ class BookmarkController {
         // '食べ歩き',
       ],
       cost: 100000,
-      thumbnailPath: 'assets/images/1.jpg',
+      thumbnailPath: 'assets/images/3.jpg',
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
     ),

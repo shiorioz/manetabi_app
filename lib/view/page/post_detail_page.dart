@@ -21,8 +21,10 @@ class PostDetailPage extends StatefulWidget {
 }
 
 class _PostDetailPageState extends State<PostDetailPage> {
-  Future<PostModel> _getPlan() async {
-    return DetailController().post;
+  bool _isLiked = false;
+
+  Future<PostModel> _getPost() async {
+    return DetailController().getPost(widget.planId);
   }
 
   Future<void> _showKeepDialog() async {
@@ -62,11 +64,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
                             letterSpacing: 1.5)),
                   ),
                   onPressed: () {
-                    Navigator.pop(context);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const Navigator()));
+                    Navigator.pushNamed(context, '/');
                   },
                 ),
               ),
@@ -82,20 +80,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return Scaffold(
       appBar: const MenubarComp(),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _postDetailFutureWidget(context),
-            IconBtnComponent(
-              context,
-              btnText: StringConst.keepText,
-              icon: FontAwesomeIcons.solidCircleDown,
-              onPressed: () {
-                _showKeepDialog();
-              },
-            ),
-            const SizedBox(height: 40),
-          ],
-        ),
+        child: _postDetailFutureWidget(context),
       ),
     );
   }
@@ -104,7 +89,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: FutureBuilder(
-        future: _getPlan(),
+        future: _getPost(),
         builder: (context, AsyncSnapshot<dynamic> snapshot) {
           // ロード中
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -127,7 +112,20 @@ class _PostDetailPageState extends State<PostDetailPage> {
 
           final data = snapshot.data;
 
-          return _displayPostWidget(data);
+          return Column(
+            children: [
+              _displayPostWidget(data),
+              IconBtnComponent(
+                context,
+                btnText: StringConst.keepText,
+                icon: FontAwesomeIcons.solidCircleDown,
+                onPressed: () {
+                  _showKeepDialog();
+                },
+              ),
+              const SizedBox(height: 40),
+            ],
+          );
         },
       ),
     );
@@ -150,7 +148,7 @@ class _PostDetailPageState extends State<PostDetailPage> {
             _costWidget(post.cost),
             const SizedBox(height: 20),
             // ブロック
-            _blockWidget(post.block!),
+            if (post.block != null) _blockWidget(post.block),
           ],
         ),
       ),
@@ -217,13 +215,21 @@ class _PostDetailPageState extends State<PostDetailPage> {
                     splashColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onPressed: () {
-                      // TODO: いいねボタンを押した時の処理
+                      setState(() {
+                        _isLiked = !_isLiked;
+                      });
                     },
-                    icon: const Icon(
-                      FontAwesomeIcons.solidHeart,
-                      color: ColorConst.white,
-                      size: 20,
-                    ),
+                    icon: _isLiked
+                        ? const Icon(
+                            FontAwesomeIcons.solidHeart,
+                            color: ColorConst.white,
+                            size: 20,
+                          )
+                        : const Icon(
+                            FontAwesomeIcons.heart,
+                            color: ColorConst.white,
+                            size: 20,
+                          ),
                   ),
                 ),
               ),
@@ -248,17 +254,18 @@ class _PostDetailPageState extends State<PostDetailPage> {
                   color: ColorConst.darkGrey,
                 ),
                 const SizedBox(width: 4),
-                SizedBox(
-                  height: 38,
-                  width: MediaQuery.of(context).size.width * 0.20,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: post.location!.length,
-                    itemBuilder: (context, index) {
-                      return _locationWidget(post.location![index]);
-                    },
+                if (post.location != null)
+                  SizedBox(
+                    height: 38,
+                    width: MediaQuery.of(context).size.width * 0.20,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: post.location!.length,
+                      itemBuilder: (context, index) {
+                        return _locationWidget(post.location![index]);
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
             Container(
